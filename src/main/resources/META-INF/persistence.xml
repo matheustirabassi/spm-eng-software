@@ -8,7 +8,7 @@
 	<persistence-unit name="curso_PU" transaction-type="RESOURCE_LOCAL">	    
 		<properties>
 			<!--  -->
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/curso?autoReconnect=true&amp;useSSL=false&amp;useTimezone=true&amp;serverTimezone=UTC"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://mysql-db.cpw6enartacu.us-east-1.rds.amazonaws.com:3306/spm?autoReconnect=true&amp;useSSL=false&amp;useTimezone=true&amp;serverTimezone=UTC"/>
 			<property name="javax.persistence.jdbc.user" value="admin"/>
 			<property name="javax.persistence.jdbc.password" value="lKW5ltZngVyNHUyhVQmp"/>			
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>			
