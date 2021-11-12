@@ -5,23 +5,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import com.curso.dao.AdministradorDAO;
-import com.curso.modelo.Administrador;
+import com.curso.dao.LoginDAO;
+import com.curso.modelo.Login;
 import com.curso.util.cdi.CDIServiceLocator;
 
-@FacesConverter(forClass = Administrador.class)
+@FacesConverter(forClass = Login.class)
 public class AdministradorConverter implements Converter<Object> {
 
-	private AdministradorDAO administradorDAO;
+	private LoginDAO administradorDAO;
 
 	public AdministradorConverter() {
-		this.administradorDAO = CDIServiceLocator.getBean(AdministradorDAO.class);
+		this.administradorDAO = CDIServiceLocator.getBean(LoginDAO.class);
 	}
 
 	@Override // converte tipo String para objeto - necessário mapear do modelo relacional
 				// para obj
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		Administrador retorno = null;
+		Login retorno = null;
 
 		if (value != null) {
 			retorno = this.administradorDAO.findById(Integer.parseInt(value));
@@ -34,7 +34,7 @@ public class AdministradorConverter implements Converter<Object> {
 				// relacional
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		if (value != null) {
-			Integer codigo = ((Administrador) value).getId();
+			Integer codigo = ((Login) value).getId();
 			String retorno = (codigo == null ? null : codigo.toString());
 
 			return retorno;
