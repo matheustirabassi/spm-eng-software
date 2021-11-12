@@ -1,0 +1,118 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">Federações</ui:define>
+
+	<ui:define name="corpo">
+		<h1>Federações</h1>
+
+		<h:form id="frmPesquisa">
+
+			<p:messages id="messages" showDetail="false" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton icon="fa fa-plus" value="Novo" id="botaoNovo"
+						action="/restricted/federacao/CadastroFederacao.xhtml" />
+
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:dataTable id="federacoesTable"
+				value="#{pesquisaFederacaoBean.federacoes}" var="federacao"
+				style="margin-top: 20px"
+				emptyMessage="Nenhuma federacao encontrada." rows="10"
+				paginator="true" paginatorAlwaysVisible="true"
+				paginatorPosition="bottom" lazy="false"
+				rowsPerPageTemplate="5,10,15">
+
+				<p:column headerText="Codigo"
+					style="width: 100px; text-align: center">
+					<h:outputText value="#{federacao.codigo}" />
+				</p:column>
+
+				<p:column headerText="Sigla"
+					style="width: 100px; text-align: center"
+					sortBy="#{federacao.sigla}" filterBy="#{federacao.sigla}">
+					<h:outputText value="#{federacao.sigla}" />
+				</p:column>
+
+				<p:column headerText="Nome" style="width: 200px; text-align: center">
+					<h:outputText value="#{federacao.nome}" />
+				</p:column>
+				<p:column headerText="Cnpj" style="width: 200px; text-align: center">
+					<h:outputText value="#{federacao.cnpj}" />
+				</p:column>
+				<p:column headerText="Presidente"
+					style="width: 200px; text-align: center">
+					<h:outputText value="#{federacao.presidente}" />
+				</p:column>
+				<p:column headerText="Telefone"
+					style="width: 200px; text-align: center">
+					<h:outputText value="#{federacao.telefone}" />
+				</p:column>
+
+				<p:column style="width: 100px; text-align: center">
+					<p:button outcome="CadastroFederacao" icon="fa fa-edit"
+						title="Editar">
+						<f:param name="federacao" value="#{federacao.codigo}" />
+					</p:button>
+					<p:commandButton icon="fa fa-trash-o" title="Excluir"
+						onclick="PF('confirmacaoExclusao').show();" process="@this">
+						<f:setPropertyActionListener
+							target="#{pesquisaFederacaoBean.federacaoSelecionada}"
+							value="#{federacao}" />
+					</p:commandButton>
+					<p:commandButton icon="fa fa-bicycle" title="Clubes"
+						update="frmPesquisa:clubesTable" onclick="PF('verClubes').show();"
+						process="@this">
+						<f:setPropertyActionListener
+							target="#{pesquisaFederacaoBean.federacaoSelecionada}"
+							value="#{federacao}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:confirmDialog id="confirmacaoExclusaoDialog"
+				widgetVar="confirmacaoExclusao"
+				message="Tem certeza que deseja excluir a federação #{pesquisaFederacaoBean.federacaoSelecionada.sigla}?"
+				header="Exclusão de federação" severity="alert">
+
+				<p:button icon="fa fa-thumbs-o-down" value="Não"
+					onclick="PF('confirmacaoExclusao').hide(); return false;" />
+				<p:commandButton icon="fa fa-thumbs-o-up" value="Sim"
+					update=":frmPesquisa:federacoesTable"
+					onclick="PF('confirmacaoExclusao').hide();"
+					action="#{pesquisaFederacaoBean.excluir}" />
+			</p:confirmDialog>
+
+
+
+			<p:dialog id="clubesDialog" widgetVar="verClubes" header="Clubes"
+				showEffect="fade" modal="true" responsive="true" resizable="false">
+
+				<p:dataTable id="clubesTable"
+					value="#{pesquisaFederacaoBean.federacaoSelecionada.clubes}"
+					var="clube" style="margin-top: 20px"
+					emptyMessage="Nenhum clube encontrado." rows="10" paginator="true"
+					paginatorAlwaysVisible="false" paginatorPosition="bottom"
+					lazy="false" rowsPerPageTemplate="5,10,15">
+
+					<p:column headerText="Nome"
+						style="width: 200px; text-align: center">
+						<h:outputText value="#{clube.nome}" />
+					</p:column>
+
+				</p:dataTable>
+
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
