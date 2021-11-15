@@ -51,7 +51,7 @@ public class TutorDAO implements Serializable {
 
 		try {
 			log.info("Obtendo tutor..");
-			return (Tutor) manager.createNamedQuery("Tutor.getTutor", Tutor.class).setParameter("email", email)
+			return manager.createNamedQuery("Tutor.getTutor", Tutor.class).setParameter("email", email)
 					.setParameter("senha", senha).getSingleResult();
 		} catch (NoResultException e) {
 			return null;
@@ -65,13 +65,13 @@ public class TutorDAO implements Serializable {
 
 	@SuppressWarnings("unchecked")
 	public List<Tutor> findAll() {
-		log.info("procurando todos os tutors...");
-		return manager.createNamedQuery("Tutor.findAll").getResultList();
+		log.info("procurando todos os tutores...");
+		return manager.createNamedQuery("Tutor.buscarTodos").getResultList();
 	}
 
 	public Tutor findByEmail(String email) {
 		log.info("procurando o tutor por email...");
-		return manager.createNamedQuery("Tutor.findByEmail", Tutor.class).setParameter("email", email)
+		return manager.createNamedQuery("Tutor.buscarPorEmail", Tutor.class).setParameter("email", email)
 				.getSingleResult();
 	}
 
@@ -86,7 +86,8 @@ public class TutorDAO implements Serializable {
 	@SuppressWarnings("unchecked")
 	public List<Tutor> buscarComPaginacao(int first, int pageSize) {
 		log.info("buscando com paginação...");
-		return manager.createNamedQuery("Tutor.findAll").setFirstResult(first).setMaxResults(pageSize).getResultList();
+		return manager.createNamedQuery("Tutor.buscarTodos").setFirstResult(first).setMaxResults(pageSize)
+				.getResultList();
 	}
 
 	public Long encontrarQuantidadeDeTutores() {

@@ -10,12 +10,12 @@ import com.curso.modelo.Login;
 import com.curso.util.cdi.CDIServiceLocator;
 
 @FacesConverter(forClass = Login.class)
-public class AdministradorConverter implements Converter<Object> {
+public class LoginConverter implements Converter<Object> {
 
-	private LoginDAO administradorDAO;
+	private LoginDAO loginDAO;
 
-	public AdministradorConverter() {
-		this.administradorDAO = CDIServiceLocator.getBean(LoginDAO.class);
+	public LoginConverter() {
+		this.loginDAO = CDIServiceLocator.getBean(LoginDAO.class);
 	}
 
 	@Override // converte tipo String para objeto - necessário mapear do modelo relacional
@@ -24,7 +24,7 @@ public class AdministradorConverter implements Converter<Object> {
 		Login retorno = null;
 
 		if (value != null) {
-			retorno = this.administradorDAO.findById(Integer.parseInt(value));
+			retorno = this.loginDAO.findById(Integer.parseInt(value));
 		}
 
 		return retorno;

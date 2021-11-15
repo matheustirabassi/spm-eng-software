@@ -1,0 +1,80 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">Tutores</ui:define>
+
+	<ui:define name="corpo">
+		<h1>Tutores</h1>
+
+		<h:form id="frmPesquisa">
+
+			<p:messages id="messages" showDetail="false" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton icon="fa fa-plus" value="Novo" id="botaoNovo"
+						action="/restricted/tutor/CadastroTutor.xhtml" />
+
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:dataTable id="federacoesTable"
+				value="#{pesquisaTutorBean.tutores}" var="tutor"
+				style="margin-top: 20px" emptyMessage="Nenhuma tutor encontrada."
+				rows="10" paginator="true" paginatorAlwaysVisible="true"
+				paginatorPosition="bottom" lazy="false"
+				rowsPerPageTemplate="5,10,15">
+
+				<p:column headerText="Codigo"
+					style="width: 100px; text-align: center">
+					<h:outputText value="#{tutor.cpf}" />
+				</p:column>
+
+				<p:column headerText="Nome" style="width: 200px; text-align: center">
+					<h:outputText value="#{tutor.nome}" />
+				</p:column>
+
+				
+				<p:column headerText="Telefone"
+					style="width: 200px; text-align: center">
+					<h:outputText value="#{tutor.telefone}" />
+				</p:column>
+
+				<p:column style="width: 100px; text-align: center">
+					<p:button outcome="CadastroTutor" icon="fa fa-edit" title="Editar">
+						<f:param name="tutor" value="#{tutor.cpf}" />
+					</p:button>
+					<p:commandButton icon="fa fa-trash-o" title="Excluir"
+						onclick="PF('confirmacaoExclusao').show();" process="@this">
+						<f:setPropertyActionListener
+							target="#{pesquisaTutorBean.tutorSelecionado}" value="#{tutor}" />
+					</p:commandButton>
+
+				</p:column>
+			</p:dataTable>
+
+			<p:confirmDialog id="confirmacaoExclusaoDialog"
+				widgetVar="confirmacaoExclusao"
+				message="Tem certeza que deseja excluir o tutor #{pesquisaTutorBean.tutorSelecionado.cpf}?"
+				header="Exclusão de tutor" severity="alert">
+
+				<p:button icon="fa fa-thumbs-o-down" value="Não"
+					onclick="PF('confirmacaoExclusao').hide(); return false;" />
+				<p:commandButton icon="fa fa-thumbs-o-up" value="Sim"
+					update=":frmPesquisa:federacoesTable"
+					onclick="PF('confirmacaoExclusao').hide();"
+					action="#{pesquisaTutorBean.excluir}" />
+			</p:confirmDialog>
+
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

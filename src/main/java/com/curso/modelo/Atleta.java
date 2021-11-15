@@ -26,13 +26,14 @@ import com.curso.modelo.enums.Sexo;
 		@NamedQuery(name = "Atleta.buscarPorEmail", query = 
 		"select a from Atleta a where a.email = :email") })
 public class Atleta {
-
+	
 	private Long codigo;
 	private String nome;
 	private String email;
 	private String telefone;
 	private Date dataNascimento;
-	private Sexo Sexo;
+	@Enumerated(EnumType.STRING)
+	private Sexo sexo;
 	private Clube clube;
 	private Date dataCriacao;
 	private Date dataModificacao;
@@ -113,14 +114,8 @@ public class Atleta {
 	 * Enums
 	 */
 
-	@Enumerated(EnumType.STRING)
-	public Sexo getSexo() {
-		return Sexo;
-	}
 
-	public void setSexo(Sexo sexo) {
-		Sexo = sexo;
-	}
+	
 
 	/*
 	 * Relacionamentos
@@ -129,6 +124,14 @@ public class Atleta {
 	@JoinColumn(name = "codigo_clube")
 	public Clube getClube() {
 		return clube;
+	}
+
+	public Sexo getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(Sexo sexo) {
+		this.sexo = sexo;
 	}
 
 	public void setClube(Clube clube) {

@@ -5,10 +5,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.enterprise.context.ContextNotActiveException;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.context.spi.Context;
 import javax.enterprise.context.spi.Contextual;
 import javax.enterprise.context.spi.CreationalContext;
-import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PreDestroyViewMapEvent;
@@ -66,7 +66,7 @@ public class ViewScopedContext implements Context, SystemEventListener {
 
 	@Override
 	public Class<? extends Annotation> getScope() {
-		return ViewScoped.class;
+		return SessionScoped.class;
 	}
 
 	@Override

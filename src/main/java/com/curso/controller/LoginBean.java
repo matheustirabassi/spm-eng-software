@@ -10,12 +10,14 @@ import javax.persistence.Column;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.jboss.logging.Logger;
-
 import com.curso.modelo.Login;
 import com.curso.service.LoginService;
 import com.curso.util.MessageUtil;
 
+import lombok.extern.log4j.Log4j;
+
+
+@Log4j
 @Named
 @SessionScoped
 public class LoginBean implements Serializable {
@@ -28,8 +30,6 @@ public class LoginBean implements Serializable {
 	private String email;
 	private String senha;
 	private Login login;
-
-	private Logger log = Logger.getLogger(LoginBean.class);
 
 	public void inicializar() {
 		log.info("Login bean inicializar...");
@@ -50,14 +50,14 @@ public class LoginBean implements Serializable {
 	}
 
 	public String entrar() {
-		Login adm = isValidLogin();
+		Login user = isValidLogin();
 		log.info("Entrando...");
-		if (adm != null) {
+		if (user != null) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-			if ((Login) request.getSession().getAttribute("login") == null) {
-				request.getSession().setAttribute("login", adm);
-				log.info("usuario não logado:" + adm.getNome());
+			if ((Login) request.getSession().getAttribute("user") == null) {
+				request.getSession().setAttribute("user", user);
+				log.info("usuario não logado:" + user.getNome());
 			} else {
 				MessageUtil.alerta("Você já está logado");
 			}
@@ -68,7 +68,7 @@ public class LoginBean implements Serializable {
 	public void sair() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-		HttpSession session = ((HttpServletRequest) request).getSession();
+		HttpSession session = (request).getSession();
 		session.invalidate();
 		log.info("saindo da conta...");
 

@@ -25,7 +25,7 @@ public class TutorService implements Serializable {
 		return tutorDAO.findAll();
 	}
 	
-	public void deletar(Tutor tutor) throws NegocioException {
+	public void excluir(Tutor tutor) throws NegocioException {
 		tutorDAO.delete(tutor);		
 	}
 
@@ -38,5 +38,7 @@ public class TutorService implements Serializable {
 	public List<Tutor> buscarPorNome(String nome){
 		return tutorDAO.findByName(nome);
 	}
-	
+	public Tutor buscarPorId(Long cpf) {
+		return tutorDAO.findById(cpf);
+	}
 }

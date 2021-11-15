@@ -1,19 +1,19 @@
 package com.curso.modelo;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
@@ -41,11 +41,16 @@ public class Tutor {
 	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
 	private Date dataNascimento;
+	private String telefone;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacao;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataModificacao;
-
+	
+	@OneToOne
+	private Login login;
+	@OneToMany
+	private List<Agendamento> agendamentos = new ArrayList<>();
 	@PrePersist
 	@PreUpdate
 	public void configuraDatasCriacaoAlteracao() {
