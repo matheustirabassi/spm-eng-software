@@ -7,16 +7,17 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.Column;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.jboss.logging.Logger;
-
-import com.curso.modelo.Administrador;
-import com.curso.service.AdministradorService;
+import com.curso.modelo.Login;
+import com.curso.service.LoginService;
 import com.curso.util.MessageUtil;
 
+import lombok.extern.log4j.Log4j;
+
+
+@Log4j
 @Named
 @SessionScoped
 public class LoginBean implements Serializable {
@@ -24,52 +25,52 @@ public class LoginBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	AdministradorService admService;
-	@Column(unique=true)
+	LoginService loginService;
+	@Column(unique = true)
 	private String email;
 	private String senha;
-	private Administrador administrador;
-
-	private Logger log = Logger.getLogger(LoginBean.class);
+	private Login login;
 
 	public void inicializar() {
 		log.info("Login bean inicializar...");
 	}
 
-	public Administrador isValidLogin() {
-		System.out.println(admService.findByEmail(email));
+	public Login isValidLogin() {
+		log.info(loginService.findByEmail(email));
 		log.info("isValidLogin...");
-		administrador = (Administrador) admService.findByEmail(email);
-		
-		if (administrador != null) {
-			if (!senha.equals(administrador.getSenha())) {
+		login = (Login) loginService.findByEmail(email);
+
+		if (login != null) {
+			if (!senha.equals(login.getSenha())) {
 				throw new RuntimeException("senha inválida");
 			}
 		}
-		return administrador;
+		return login;
 
 	}
 
 	public String entrar() {
-		Administrador adm = isValidLogin();
+		Login user = isValidLogin();
 		log.info("Entrando...");
-		if (adm != null) {
+		if (user != null) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-			if ((Administrador) request.getSession().getAttribute("administrador") == null) {
-				request.getSession().setAttribute("administrador", adm);
-				log.info("usuario não logado:" + adm.getNome());
+			if ((Login) request.getSession().getAttribute("user") == null) {
+				request.getSession().setAttribute("user", user);
+				log.info("usuario não logado:" + user.getNome());
 			} else {
 				MessageUtil.alerta("Você já está logado");
 			}
 		}
 		return "Home.xhtml";
 	}
+
 	public void sair() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-		HttpSession session = ((HttpServletRequest) request).getSession();
+		HttpSession session = (request).getSession();
 		session.invalidate();
+		log.info("saindo da conta...");
 
 	}
 
@@ -89,12 +90,12 @@ public class LoginBean implements Serializable {
 		this.senha = senha;
 	}
 
-	public Administrador getAdministrador() {
-		return administrador;
+	public Login getLogin() {
+		return login;
 	}
 
-	public void setAdministrador(Administrador administrador) {
-		this.administrador = administrador;
+	public void setLogin(Login login) {
+		this.login = login;
 	}
 
 }

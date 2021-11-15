@@ -16,21 +16,21 @@ import javax.servlet.http.HttpSession;
 import org.jboss.logging.Logger;
 
 import com.curso.controller.LoginBean;
-import com.curso.modelo.Administrador;
+import com.curso.modelo.Login;
 
 @WebFilter(urlPatterns = "/restricted/*", servletNames = "{Faces Servlet}")
 public class PageFilter implements Filter {
 	private Logger log = Logger.getLogger(LoginBean.class);
 
 	public void destroy() {
-		// TODO Auto-generated method stub
+		// Nunca usado
 
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpSession session = ((HttpServletRequest) request).getSession();
-		Administrador administrador = (Administrador) session.getAttribute("administrador");
+		Login administrador = (Login) session.getAttribute("user");
 
 		if (administrador == null || session.isNew()) {
 			log.debug("Sessão não iniciada...");
@@ -44,7 +44,7 @@ public class PageFilter implements Filter {
 	}
 
 	public void init(FilterConfig arg0) throws ServletException {
-		// TODO Auto-generated method stub
+		// Nunca usado
 
 	}
 
