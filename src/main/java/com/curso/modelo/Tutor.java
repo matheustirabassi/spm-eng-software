@@ -46,11 +46,12 @@ public class Tutor {
 	private Date dataCriacao;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataModificacao;
-	
+
 	@OneToOne
 	private Login login;
 	@OneToMany
 	private List<Agendamento> agendamentos = new ArrayList<>();
+
 	@PrePersist
 	@PreUpdate
 	public void configuraDatasCriacaoAlteracao() {

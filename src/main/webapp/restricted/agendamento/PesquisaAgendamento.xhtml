@@ -5,10 +5,10 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
-	<ui:define name="titulo">Tutores</ui:define>
+	<ui:define name="titulo">Agendamentos</ui:define>
 
 	<ui:define name="corpo">
-		<h1>Tutores</h1>
+		<h1>Agendamentos</h1>
 
 		<h:form id="frmPesquisa">
 
@@ -19,40 +19,49 @@
 			<p:toolbar style="margin-top: 20px">
 				<p:toolbarGroup>
 					<p:commandButton icon="fa fa-plus" value="Novo" id="botaoNovo"
-						action="/restricted/tutor/CadastroTutor.xhtml" />
+						action="/restricted/agendamento/CadastroAgendamento.xhtml" />
 
 				</p:toolbarGroup>
 			</p:toolbar>
 
-			<p:dataTable id="tutoresTable" value="#{pesquisaTutorBean.tutores}"
-				var="tutor" style="margin-top: 20px"
-				emptyMessage="Nenhuma tutor encontrada." rows="10" paginator="true"
-				paginatorAlwaysVisible="true" paginatorPosition="bottom"
-				lazy="false" rowsPerPageTemplate="5,10,15">
+			<p:dataTable id="agendamentoesTable"
+				value="#{pesquisaAgendamentoBean.agendamentos}" var="agendamento"
+				style="margin-top: 20px"
+				emptyMessage="Nenhuma agendamento encontrada." rows="10"
+				paginator="true" paginatorAlwaysVisible="true"
+				paginatorPosition="bottom" lazy="false"
+				rowsPerPageTemplate="5,10,15">
 
 				<p:column headerText="Codigo"
 					style="width: 100px; text-align: center">
-					<h:outputText value="#{tutor.cpf}" />
+					<h:outputText value="#{agendamento.id}" />
 				</p:column>
 
-				<p:column headerText="Nome" style="width: 200px; text-align: center">
-					<h:outputText value="#{tutor.nome}" />
-				</p:column>
-
-
-				<p:column headerText="Telefone"
+				<p:column headerText="Data marcada"
 					style="width: 200px; text-align: center">
-					<h:outputText value="#{tutor.telefone}" />
+					<h:outputText value="#{agendamento.dataHoraMarcada}">
+						<f:convertDateTime pattern="dd/MMM/yyyy HH:mm" />
+					</h:outputText>
+				</p:column>
+
+
+				<p:column headerText="Descrição"
+					style="width: 200px; text-align: center">
+					<h:outputText value="#{agendamento.observacao}" />
 				</p:column>
 
 				<p:column style="width: 100px; text-align: center">
-					<p:button outcome="CadastroTutor" icon="fa fa-edit" title="Editar">
-						<f:param name="tutor" value="#{tutor.cpf}" />
+					<p:button outcome="CadastroAgendamento" icon="fa fa-edit"
+						title="Editar">
+						<f:param name="agendamento" value="#{agendamento.id}" />
 					</p:button>
+
+
 					<p:commandButton icon="fa fa-trash-o" title="Excluir"
 						onclick="PF('confirmacaoExclusao').show();" process="@this">
 						<f:setPropertyActionListener
-							target="#{pesquisaTutorBean.tutorSelecionado}" value="#{tutor}" />
+							target="#{pesquisaAgendamentoBean.agendamentoSelecionado}"
+							value="#{agendamento}" />
 					</p:commandButton>
 
 				</p:column>
@@ -60,15 +69,15 @@
 
 			<p:confirmDialog id="confirmacaoExclusaoDialog"
 				widgetVar="confirmacaoExclusao"
-				message="Tem certeza que deseja excluir o tutor #{pesquisaTutorBean.tutorSelecionado.cpf}?"
-				header="Exclusão de tutor" severity="alert">
+				message="Tem certeza que deseja excluir o agendamento #{pesquisaAgendamentoBean.agendamentoSelecionado.cpf}?"
+				header="Exclusão de agendamento" severity="alert">
 
 				<p:button icon="fa fa-thumbs-o-down" value="Não"
 					onclick="PF('confirmacaoExclusao').hide(); return false;" />
 				<p:commandButton icon="fa fa-thumbs-o-up" value="Sim"
-					update=":frmPesquisa:tutoresTable"
+					update=":frmPesquisa:agendamentoesTable"
 					onclick="PF('confirmacaoExclusao').hide();"
-					action="#{pesquisaTutorBean.excluir}" />
+					action="#{pesquisaAgendamentoBean.excluir}" />
 			</p:confirmDialog>
 
 

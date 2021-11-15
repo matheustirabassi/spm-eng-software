@@ -9,8 +9,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.curso.modelo.Tutor;
-import com.curso.service.TutorService;
+import com.curso.modelo.Agendamento;
+import com.curso.service.AgendamentoService;
 import com.curso.util.MessageUtil;
 import com.curso.util.NegocioException;
 
@@ -23,30 +23,29 @@ import lombok.NoArgsConstructor;
 @Data
 @Named
 @ViewScoped
-public class PesquisaTutorBean implements Serializable {
+public class PesquisaAgendamentoBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private List<Tutor> tutores = new ArrayList<>();
-	private Tutor tutorSelecionado;
+	private List<Agendamento> agendamentos = new ArrayList<>();
+	private Agendamento agendamentoSelecionado;
 
 	@Inject
-	TutorService tutorService;
+	AgendamentoService tutorService;
 
 	@PostConstruct
 	public void inicializar() {
-		tutores = tutorService.buscarTodos();
+		agendamentos = tutorService.buscarTodos();
 	}
 
-	public void delete() {
+	public void excluir() {
 		try {
-			tutorService.excluir(tutorSelecionado);
-			this.tutores.remove(tutorSelecionado);
-			MessageUtil.sucesso("Tutor " + tutorSelecionado.getNome() + " excluído com sucesso.");
+			tutorService.excluir(agendamentoSelecionado);
+			this.agendamentos.remove(agendamentoSelecionado);
+			MessageUtil.sucesso("Agendamento " + agendamentoSelecionado.getId() + " excluído com sucesso.");
 		} catch (NegocioException e) {
 			MessageUtil.erro(e.getMessage());
 		}
 	}
-	
 
 }

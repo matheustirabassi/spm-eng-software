@@ -9,9 +9,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.curso.modelo.Tutor;
+import com.curso.modelo.Agendamento;
 import com.curso.modelo.enums.Sexo;
-import com.curso.service.TutorService;
+import com.curso.service.AgendamentoService;
 import com.curso.util.MessageUtil;
 import com.curso.util.NegocioException;
 
@@ -20,21 +20,20 @@ import lombok.Data;
 @Data
 @Named
 @ViewScoped
-public class CadastroTutorBean implements Serializable {
+public class CadastroAgendamentoBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Tutor tutor;
-	private List<Sexo> sexos;
+	private Agendamento agendamento;
 
 	@Inject
-	private TutorService tutorService;
+	private AgendamentoService agendamentoService;
 
 	public void salvar() {
 		try {
 
-			this.tutorService.salvar(tutor);
-			MessageUtil.sucesso("Tutor salvo com sucesso!");
+			this.agendamentoService.salvar(agendamento);
+			MessageUtil.sucesso("Agendamento salvo com sucesso!");
 		} catch (NegocioException e) {
 			MessageUtil.erro(e.getMessage());
 		} catch (Exception ex) {
@@ -46,12 +45,11 @@ public class CadastroTutorBean implements Serializable {
 
 	@PostConstruct
 	public void inicializar() {
-		sexos = Arrays.asList(Sexo.values());
 		limpar();
 	}
 
 	public void limpar() {
-		this.tutor = new Tutor();
+		this.agendamento = new Agendamento();
 	}
 
 }

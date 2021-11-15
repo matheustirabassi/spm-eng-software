@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
@@ -22,6 +24,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Embeddable
 @Entity
+@NamedQueries({ @NamedQuery(name = "Agendamento.buscarTodos", query = "select f from Agendamento f") })
 public class Agendamento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +37,7 @@ public class Agendamento {
 	private Date dataModificacao;
 	@ManyToOne
 	private Tutor tutor;
-	
+
 	@PrePersist
 	@PreUpdate
 	public void configuraDatasCriacaoAlteracao() {
@@ -44,5 +47,5 @@ public class Agendamento {
 			this.dataCriacao = new Date();
 		}
 	}
-	
+
 }

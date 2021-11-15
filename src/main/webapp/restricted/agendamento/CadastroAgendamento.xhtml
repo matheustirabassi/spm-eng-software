@@ -1,0 +1,66 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">Agendamento</ui:define>
+
+	<ui:define name="corpo">
+		<f:metadata>
+			<o:viewParam name="agendamento"
+				value="#{cadastroAgendamentoBean.agendamento}" />
+		</f:metadata>
+
+		<h1>Agendamentos</h1>
+
+		<h:form id="frmCadastro">
+
+			<p:messages id="messages" showDetail="false" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+
+			<p:defaultCommand target="botaoSalvar" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Salvar" id="botaoSalvar" icon="fa fa-save"
+						action="#{cadastroAgendamentoBean.salvar}" update="frmCadastro" />
+					<span class="ui-separator"> <span
+						class="ui-icon ui-icon-grip-dotted-vertical" />
+					</span>
+					<p:button icon="fa fa-search" value="Pesquisar"
+						outcome="/restricted/agendamento/PesquisaAgendamento.xhtml" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+
+			<p:panelGrid columns="1" id="painel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+				<p:outputLabel value="Código" for="id" />
+				<p:inputText id="id" size="20" maxlength="20"
+					value="#{cadastroAgendamentoBean.agendamento.id}" readonly="true" />
+
+				<p:outputLabel value="Data da tosa" for="dataHoraMarcada" />
+				<p:calendar id="dataHoraMarcada" size="15"
+					value="#{cadastroAgendamentoBean.agendamento.dataHoraMarcada}"
+					pattern="dd/MM/yyyy HH:mm" />
+				<p:outputLabel value="Observação" for="observacao" />
+				<p:inputText id="observacao" size="60" maxlength="80"
+					value="#{cadastroAgendamentoBean.agendamento.observacao}" />
+
+
+				<p:outputLabel value="Tutor" for="tutor" />
+				<p:selectOneMenu id="tutor" required="true"
+					value="#{cadastroAgendamentoBean.agendamento.tutor}"
+					validatorMessage="A tutor é obrigatória.">
+					<f:selectItem itemLabel="Selecione o tutor" />
+					<f:selectItems value="#{pesquisaTutorBean.tutores}" var="tutor"
+						itemLabel="#{tutor.cpf}" itemValue="#{tutor}" />
+				</p:selectOneMenu>
+
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
