@@ -38,7 +38,7 @@ public class PesquisaTutorBean implements Serializable {
 		tutores = tutorService.buscarTodos();
 	}
 
-	public void delete() {
+	public void excluir() {
 		try {
 			tutorService.excluir(tutorSelecionado);
 			this.tutores.remove(tutorSelecionado);
@@ -47,6 +47,5 @@ public class PesquisaTutorBean implements Serializable {
 			MessageUtil.erro(e.getMessage());
 		}
 	}
-	
 
 }
