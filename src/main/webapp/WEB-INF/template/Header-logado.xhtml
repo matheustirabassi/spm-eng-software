@@ -29,24 +29,14 @@
 			<div style="float: left">
 				<h:outputLabel value="Sistema de Petshop" />
 				<br></br>
-				<h:outputLabel value="IFSP Salto" />
+				<h:outputLabel value="SiA" />
 			</div>
 
 			<div style="float: right; margin-right: 110px">
 				<h:form style="display: inline-block">
 					<p:menubar styleClass="menu-sistema">
-						<p:menuitem value="Home" outcome="/Home.xhtml" />
-						<p:menuitem value="Login" outcome="/login.xhtml" />
-						<p:submenu label="Cadastrar">
-							<p:menuitem value="Tutor"
-								outcome="/restricted/tutor/PesquisaTutor.xhtml">
-							</p:menuitem>
-							<p:menuitem value="Agendamento"
-								outcome="/restricted/agendamento/PesquisaAgendamento.xhtml">
-							</p:menuitem>
-						</p:submenu>
-						<p:menuitem value="Sair" outcome="/login.xhtml"
-							action="#{loginBean.sair}" />
+						<p:menuitem value="Gerenciar agendamentos" outcome="/restricted/agendamentos/PesquisaAgendamentos.xhtml" />
+						<p:menuitem value="Sair" outcome="/login.xhtml" action="#{loginBean.sair}" />
 					</p:menubar>
 				</h:form>
 			</div>

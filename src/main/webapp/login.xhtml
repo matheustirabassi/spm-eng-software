@@ -6,26 +6,27 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
 	<ui:define name="titulo">Login </ui:define>
-	<ui:define name="corpo" align="center">
+	<ui:define name="corpo">
+		<div id="conteudo-login" align="center" style="height: 82vh;">
+			<h:graphicImage library="imagens" name="spm-logo.jpeg"
+				style="width: 13%; height: 18%" />
+			<h:form style="margin-top: 10px;">
+				<p:messages id="messages" />
+				<p:panelGrid columns="2">
+					<p:outputLabel for="email" value="Email:" />
+					<p:inputText id="email" value="#{loginBean.email}" />
 
-		<h:form>
-			<p:messages id="messages" />
-			<p:panelGrid columns="2">
-				<p:outputLabel for="email" value="Email:" />
-				<p:inputText id="email" value="#{loginBean.email}" />
+					<p:outputLabel for="senha" value="Senha:" />
+					<p:password id="senha" value="#{loginBean.senha}" />
 
-				<p:outputLabel for="senha" value="Senha:" />
-				<p:password id="senha" value="#{loginBean.senha}" />
-				
-				<p:commandButton value="Cadastrar" id="botaoCadastrar"
-					action="/login/CadastroLogin.xhtml" >
-				</p:commandButton>
-				<p:commandButton value="Enviar" id="botaoEntrar" icon="ui-icon-star"
-					action="#{loginBean.entrar}">
-				</p:commandButton>
-				
-
-			</p:panelGrid>
-		</h:form>
+					<p:commandButton value="Cadastrar" id="botaoCadastrar"
+						action="/login/CadastroLogin.xhtml">
+					</p:commandButton>
+					<p:commandButton value="Entrar" id="botaoEntrar"
+						icon="ui-icon-star" action="#{loginBean.entrar}">
+					</p:commandButton>
+				</p:panelGrid>
+			</h:form>
+		</div>
 	</ui:define>
 </ui:composition>
