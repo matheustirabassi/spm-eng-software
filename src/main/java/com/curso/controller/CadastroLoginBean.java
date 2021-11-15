@@ -7,27 +7,27 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.curso.modelo.Administrador;
-import com.curso.service.AdministradorService;
+import com.curso.modelo.Login;
+import com.curso.service.LoginService;
 import com.curso.util.MessageUtil;
 import com.curso.util.NegocioException;
 @Named
 @ViewScoped
-public class CadastroAdministradorBean implements Serializable {
+public class CadastroLoginBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Administrador administrador;
+	private Login login;
 	
 	@Inject
-	private AdministradorService administradorService;
+	private LoginService loginService;
 	
 	
 	public void save() {
 		try {
 			
-			this.administradorService.save(administrador);
-			MessageUtil.sucesso("Administrador salvo com sucesso!");
+			this.loginService.save(login);
+			MessageUtil.sucesso("Login salvo com sucesso!");
 		} catch (NegocioException e) {
 			MessageUtil.erro(e.getMessage());
 		} catch (Exception ex) {
@@ -43,15 +43,15 @@ public class CadastroAdministradorBean implements Serializable {
 	}	
 
 	public void limpar() {
-		this.administrador = new Administrador();		
+		this.login = new Login();		
 	}	
 
-	public Administrador getAdministrador() {
-		return administrador;
+	public Login getLogin() {
+		return login;
 	}
 
-	public void setAdministrador(Administrador administrador) {
-		this.administrador = administrador;
+	public void setLogin(Login login) {
+		this.login = login;
 	}
 	
 
