@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.jboss.logging.Logger;
 
 import com.curso.controller.LoginBean;
-import com.curso.modelo.Login;
+import com.curso.modelo.Administrador;
 
 @WebFilter(urlPatterns = "/restricted/*", servletNames = "{Faces Servlet}")
 public class PageFilter implements Filter {
@@ -30,7 +30,7 @@ public class PageFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpSession session = ((HttpServletRequest) request).getSession();
-		Login administrador = (Login) session.getAttribute("administrador");
+		Administrador administrador = (Administrador) session.getAttribute("administrador");
 
 		if (administrador == null || session.isNew()) {
 			log.debug("Sessão não iniciada...");
