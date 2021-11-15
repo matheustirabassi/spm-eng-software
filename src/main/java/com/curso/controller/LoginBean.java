@@ -24,7 +24,7 @@ public class LoginBean implements Serializable {
 
 	@Inject
 	LoginService loginService;
-	@Column(unique = true)
+	@Column(unique=true)
 	private String email;
 	private String senha;
 	private Login login;
@@ -36,10 +36,10 @@ public class LoginBean implements Serializable {
 	}
 
 	public Login isValidLogin() {
-		log.info(loginService.findByEmail(email));
+		System.out.println(loginService.findByEmail(email));
 		log.info("isValidLogin...");
 		login = (Login) loginService.findByEmail(email);
-
+		
 		if (login != null) {
 			if (!senha.equals(login.getSenha())) {
 				throw new RuntimeException("senha inválida");
@@ -64,13 +64,11 @@ public class LoginBean implements Serializable {
 		}
 		return "Home.xhtml";
 	}
-
 	public void sair() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 		HttpSession session = ((HttpServletRequest) request).getSession();
 		session.invalidate();
-		log.info("saindo da conta...");
 
 	}
 
