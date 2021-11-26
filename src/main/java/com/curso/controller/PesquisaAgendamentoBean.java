@@ -12,7 +12,6 @@ import javax.inject.Named;
 import com.curso.modelo.Agendamento;
 import com.curso.service.AgendamentoService;
 import com.curso.util.MessageUtil;
-import com.curso.util.NegocioException;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -35,17 +34,13 @@ public class PesquisaAgendamentoBean implements Serializable {
 
 	@PostConstruct
 	public void inicializar() {
-		agendamentos = tutorService.buscarTodos();
+		agendamentos = tutorService.findAll();
 	}
 
 	public void excluir() {
-		try {
-			tutorService.excluir(agendamentoSelecionado);
-			this.agendamentos.remove(agendamentoSelecionado);
-			MessageUtil.sucesso("Agendamento " + agendamentoSelecionado.getId() + " excluído com sucesso.");
-		} catch (NegocioException e) {
-			MessageUtil.erro(e.getMessage());
-		}
+		tutorService.delete(agendamentoSelecionado);
+		this.agendamentos.remove(agendamentoSelecionado);
+		MessageUtil.sucesso("Agendamento " + agendamentoSelecionado.getId() + " excluído com sucesso.");
 	}
 
 }

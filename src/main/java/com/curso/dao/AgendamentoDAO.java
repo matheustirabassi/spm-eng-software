@@ -1,6 +1,7 @@
 package com.curso.dao;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,53 +9,66 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 
 import com.curso.modelo.Agendamento;
-import com.curso.util.NegocioException;
 import com.curso.util.jpa.Transactional;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 
-@Log4j
-public class AgendamentoDAO implements Serializable {
+@Log4j2
+public class AgendamentoDAO implements Serializable, GenericDAO<Agendamento> {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private EntityManager manager;
 
+	@Override
 	@Transactional
-	public void salvar(Agendamento agendamento) {
+	public Agendamento save(Agendamento agendamento) {
 		log.info("gravando agendamento...");
-		manager.merge(agendamento);
+		return manager.merge(agendamento);
 	}
 
+	@Override
 	@Transactional
-	public void excluir(Agendamento agendamento) throws NegocioException {
-		log.info("excluindo agendamento...");
-		agendamento = buscarPeloCodigo(agendamento.getId());
+	public void delete(Agendamento agendamento) {
 		try {
+			log.info("excluindo agendamento...");
+			agendamento = findById(agendamento.getId());
 			manager.remove(agendamento);
 			manager.flush();
 		} catch (PersistenceException e) {
-			throw new NegocioException("Este agendamento não pode ser excluído.");
+			log.error(e.getLocalizedMessage());
+
 		}
 	}
 
-	public Agendamento buscarPeloCodigo(Long codigo) {
+	@Override
+	public Agendamento findById(Long codigo) {
 		return manager.find(Agendamento.class, codigo);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Agendamento> buscarTodos() {
-		return manager.createNamedQuery("Agendamento.buscarTodos").getResultList();
+	@Override
+	public List<Agendamento> findAll() {
+		List<Agendamento> result = manager.createNamedQuery("Agendamento.buscarTodos").getResultList();
+		if (result != null) {
+			return result;
+		}
+		return Collections.emptyList();
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Agendamento> buscarComPaginacao(int first, int pageSize) {
+	public List<Agendamento> findWithPagination(int first, int pageSize) {
 		return manager.createNamedQuery("Agendamento.buscarTodos").setFirstResult(first).setMaxResults(pageSize)
 				.getResultList();
 	}
 
-	public Long encontrarQuantidadeDeClubes() {
-		return manager.createQuery("select count(c) from Agendamento c", Long.class).getSingleResult();
+	@Override
+	public Agendamento saveOrUpdate(Agendamento t) {
+		return null;
+	}
+
+	@Override
+	public void saveOrUpdateAll(List<Agendamento> t) {
 	}
 }

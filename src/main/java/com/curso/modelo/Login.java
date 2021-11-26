@@ -28,7 +28,7 @@ public class Login implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String nome;
+	private String usuario;
 	@Column(unique = true)
 	private String email;
 	private String senha;
@@ -44,7 +44,7 @@ public class Login implements Serializable {
 
 	public Login(Integer id, String nome, String email, String senha) {
 		this.id = id;
-		this.nome = nome;
+		this.usuario = nome;
 		this.email = email;
 		this.senha = senha;
 	}
@@ -58,11 +58,11 @@ public class Login implements Serializable {
 	}
 
 	public String getNome() {
-		return nome;
+		return usuario;
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.usuario = nome;
 	}
 
 	public String getEmail() {
@@ -126,7 +126,7 @@ public class Login implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Login [id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", dataCriacao="
+		return "Login [id=" + id + ", nome=" + usuario + ", email=" + email + ", senha=" + senha + ", dataCriacao="
 				+ dataCriacao + ", dataModificacao=" + dataModificacao + "]";
 	}
 

@@ -12,17 +12,17 @@ import com.curso.util.cdi.CDIServiceLocator;
 @FacesConverter(forClass = Agendamento.class)
 public class AgendamentoConverter implements Converter<Agendamento> {
 
-	private AgendamentoDAO service;
+	private AgendamentoDAO dao;
 
 	public AgendamentoConverter() {
-		this.service = CDIServiceLocator.getBean(AgendamentoDAO.class);
+		this.dao = CDIServiceLocator.getBean(AgendamentoDAO.class);
 	}
 
 	@Override // converte tipo String para objeto - necessário mapear do modelo relacional
 				// para obj
 	public Agendamento getAsObject(FacesContext context, UIComponent component, String value) {
 		if (value != null) {
-			return this.service.buscarPeloCodigo(Long.parseLong(value));
+			return this.dao.findById(Long.parseLong(value));
 		}
 
 		return null;

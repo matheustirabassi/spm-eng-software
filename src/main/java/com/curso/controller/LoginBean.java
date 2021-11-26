@@ -14,10 +14,10 @@ import com.curso.modelo.Login;
 import com.curso.service.LoginService;
 import com.curso.util.MessageUtil;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 
 
-@Log4j
+@Log4j2
 @Named
 @SessionScoped
 public class LoginBean implements Serializable {

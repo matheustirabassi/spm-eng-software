@@ -10,19 +10,21 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import org.hibernate.exception.ConstraintViolationException;
-import org.jboss.logging.Logger;
 
 import com.curso.modelo.Login;
 import com.curso.util.NegocioException;
 import com.curso.util.jpa.Transactional;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 public class LoginDAO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private EntityManager manager;
-	private Logger log = Logger.getLogger(FederacaoDAO.class);
+
 	@Transactional
 	public void save(Login login) throws NegocioException {
 		log.info("gravando login...");
@@ -50,10 +52,8 @@ public class LoginDAO implements Serializable {
 
 		try {
 			log.info("Obtendo login..");
-			Login login = (Login) manager.createNamedQuery("Login.getLogin", Login.class)
-					.setParameter("email", email).setParameter("senha", senha).getSingleResult();
-
-			return login;
+			return manager.createNamedQuery("Login.getLogin", Login.class).setParameter("email", email)
+					.setParameter("senha", senha).getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		}
@@ -72,12 +72,12 @@ public class LoginDAO implements Serializable {
 
 	public Login findByEmail(String email) {
 		log.info("procurando o login por email...");
-		return manager.createNamedQuery("Login.findByEmail", Login.class)
-				.setParameter("email", email).getSingleResult();
+		return manager.createNamedQuery("Login.findByEmail", Login.class).setParameter("email", email)
+				.getSingleResult();
 	}
 
 	public List<Login> findByName(String nome) {
-		
+
 		String jpql = "from Login a where a.nome LIKE :nome";
 		TypedQuery<Login> query = manager.createQuery(jpql, Login.class);
 		query.setParameter("nome", "%" + nome.toUpperCase() + "%");
@@ -86,8 +86,7 @@ public class LoginDAO implements Serializable {
 
 	@SuppressWarnings("unchecked")
 	public List<Login> buscarComPaginacao(int first, int pageSize) {
-		return manager.createNamedQuery("Login.findAll").setFirstResult(first).setMaxResults(pageSize)
-				.getResultList();
+		return manager.createNamedQuery("Login.findAll").setFirstResult(first).setMaxResults(pageSize).getResultList();
 	}
 
 	public Long encontrarQuantidadeDeLogines() {
