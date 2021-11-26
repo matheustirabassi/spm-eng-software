@@ -10,7 +10,6 @@ import javax.inject.Named;
 import com.curso.modelo.Agendamento;
 import com.curso.service.AgendamentoService;
 import com.curso.util.MessageUtil;
-import com.curso.util.NegocioException;
 
 import lombok.Data;
 
@@ -20,7 +19,7 @@ import lombok.Data;
 public class CadastroAgendamentoBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	private Agendamento agendamento;
 
 	@Inject
@@ -28,11 +27,8 @@ public class CadastroAgendamentoBean implements Serializable {
 
 	public void salvar() {
 		try {
-
-			this.agendamentoService.salvar(agendamento);
+			this.agendamentoService.saveOrUpdate(agendamento);
 			MessageUtil.sucesso("Agendamento salvo com sucesso!");
-		} catch (NegocioException e) {
-			MessageUtil.erro(e.getMessage());
 		} catch (Exception ex) {
 			MessageUtil.erro(ex.getMessage());
 		}

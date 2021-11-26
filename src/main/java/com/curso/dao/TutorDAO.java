@@ -10,19 +10,20 @@ import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import org.hibernate.exception.ConstraintViolationException;
-import org.jboss.logging.Logger;
 
 import com.curso.modelo.Tutor;
 import com.curso.util.NegocioException;
 import com.curso.util.jpa.Transactional;
 
+import lombok.extern.log4j.Log4j;
+@Log4j
 public class TutorDAO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private EntityManager manager;
-	private Logger log = Logger.getLogger(FederacaoDAO.class);
+	
 
 	@Transactional
 	public void save(Tutor tutor) throws NegocioException {

@@ -1,5 +1,6 @@
 package com.curso.modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Embeddable;
@@ -25,7 +26,9 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @Entity
 @NamedQueries({ @NamedQuery(name = "Agendamento.buscarTodos", query = "select f from Agendamento f") })
-public class Agendamento {
+public class Agendamento implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

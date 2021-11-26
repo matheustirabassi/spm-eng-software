@@ -21,7 +21,7 @@ public class PesquisaLoginBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private List<Login> logins = new ArrayList<Login>();
+	private List<Login> logins = new ArrayList<>();
 	private Login loginSelecionado;
 	
 	@Inject
