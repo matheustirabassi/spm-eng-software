@@ -11,9 +11,9 @@ import javax.persistence.PersistenceException;
 import com.curso.modelo.Agendamento;
 import com.curso.util.jpa.Transactional;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 
-@Log4j
+@Log4j2
 public class AgendamentoDAO implements Serializable, GenericDAO<Agendamento> {
 
 	private static final long serialVersionUID = 1L;

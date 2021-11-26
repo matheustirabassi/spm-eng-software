@@ -15,8 +15,8 @@ import com.curso.modelo.Tutor;
 import com.curso.util.NegocioException;
 import com.curso.util.jpa.Transactional;
 
-import lombok.extern.log4j.Log4j;
-@Log4j
+import lombok.extern.log4j.Log4j2;
+@Log4j2
 public class TutorDAO implements Serializable {
 
 	private static final long serialVersionUID = 1L;

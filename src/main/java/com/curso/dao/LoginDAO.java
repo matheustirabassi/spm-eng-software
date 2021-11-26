@@ -1,7 +1,6 @@
 package com.curso.dao;
 
 import java.io.Serializable;
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,9 +15,9 @@ import com.curso.modelo.Login;
 import com.curso.util.NegocioException;
 import com.curso.util.jpa.Transactional;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 
-@Log4j
+@Log4j2
 public class LoginDAO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
