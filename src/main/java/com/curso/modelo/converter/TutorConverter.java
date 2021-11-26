@@ -5,24 +5,24 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+import com.curso.dao.TutorDAO;
 import com.curso.modelo.Tutor;
-import com.curso.service.TutorService;
 import com.curso.util.cdi.CDIServiceLocator;
 
 @FacesConverter(forClass = Tutor.class)
-public class TutorConverter implements Converter<Object> {
+public class TutorConverter implements Converter<Tutor> {
 
-	private TutorService service;
+	private TutorDAO dao;
 
 	public TutorConverter() {
-		this.service = CDIServiceLocator.getBean(TutorService.class);
+		dao = CDIServiceLocator.getBean(TutorDAO.class);
 	}
 
 	@Override // converte tipo String para objeto - necessário mapear do modelo relacional
 				// para obj
-	public Object getAsObject(FacesContext context, UIComponent component, String value) {
+	public Tutor getAsObject(FacesContext context, UIComponent component, String value) {
 		if (value != null) {
-			return this.service.buscarPorId(Long.parseLong(value));
+			return dao.findById(Long.parseLong(value));
 		}
 
 		return null;
@@ -30,10 +30,10 @@ public class TutorConverter implements Converter<Object> {
 
 	@Override // converte de objeto para codigo - necessário mapear do modelo obj para
 				// relacional
-	public String getAsString(FacesContext context, UIComponent component, Object value) {
+	public String getAsString(FacesContext context, UIComponent component, Tutor value) {
 		if (value != null) {
-			Long codigo = ((Tutor) value).getCpf();
-			return (codigo == null ? null : codigo.toString());
+			Long codigo = value.getCpf();
+			return codigo == null ? null : codigo.toString();
 		}
 
 		return "";

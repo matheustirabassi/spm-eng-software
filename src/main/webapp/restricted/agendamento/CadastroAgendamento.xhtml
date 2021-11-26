@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
 <ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -38,7 +39,7 @@
 
 			<p:panelGrid columns="1" id="painel"
 				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
-				<p:outputLabel value="CÃ³digo" for="id" />
+				<p:outputLabel value="Código" for="id" />
 				<p:inputText id="id" size="20" maxlength="20"
 					value="#{cadastroAgendamentoBean.agendamento.id}" readonly="true" />
 
@@ -46,18 +47,18 @@
 				<p:calendar id="dataHoraMarcada" size="15"
 					value="#{cadastroAgendamentoBean.agendamento.dataHoraMarcada}"
 					pattern="dd/MM/yyyy HH:mm" />
-				<p:outputLabel value="ObservaÃ§Ã£o" for="observacao" />
+				<p:outputLabel value="Observação" for="observacao" />
 				<p:inputText id="observacao" size="60" maxlength="80"
 					value="#{cadastroAgendamentoBean.agendamento.observacao}" />
 
 
 				<p:outputLabel value="Tutor" for="tutor" />
-				<p:selectOneMenu id="tutor" required="true"
-					value="#{cadastroAgendamentoBean.agendamento.tutor}"
-					validatorMessage="A tutor Ã© obrigatÃ³ria.">
+				<p:selectOneMenu id="tutor" required="false" effect="drop"
+					value="#{cadastroAgendamentoBean.agendamento.tutor}" 
+					validatorMessage="A tutor é obrigatória.">
 					<f:selectItem itemLabel="Selecione o tutor" />
 					<f:selectItems value="#{pesquisaTutorBean.tutores}" var="tutor"
-						itemLabel="#{tutor.cpf}" itemValue="#{tutor}" />
+						itemLabel="#{tutor.nome}" itemValue="#{tutor}" />
 				</p:selectOneMenu>
 
 			</p:panelGrid>
