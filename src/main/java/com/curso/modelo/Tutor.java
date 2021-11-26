@@ -23,8 +23,9 @@ import com.curso.modelo.enums.Sexo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,6 +35,7 @@ import lombok.NoArgsConstructor;
 		@NamedQuery(name = "Tutor.buscarPorEmail", query = "select a from Tutor a where a.email = :email") })
 public class Tutor {
 	@Id
+	@EqualsAndHashCode.Include
 	private Long cpf;
 	private String nome;
 	@Column(unique = true)
@@ -61,5 +63,8 @@ public class Tutor {
 			this.dataCriacao = new Date();
 		}
 	}
+
+	
+	
 
 }
