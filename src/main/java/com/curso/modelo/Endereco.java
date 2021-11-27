@@ -1,11 +1,9 @@
 package com.curso.modelo;
 
-import java.util.Date;
-
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,18 +13,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@EqualsAndHashCode(callSuper = true)
 @Embeddable
+@EqualsAndHashCode(callSuper = true)
 @Entity
-@NamedQuery(name = "Agendamento.buscarTodos", query = "select f from Agendamento f")
-public class Agendamento extends BaseEntity{
-	
+public class Endereco extends BaseEntity{
+
 	private static final long serialVersionUID = 1L;
-	private Date dataHoraMarcada;
-	private String observacao;
+	private String logradouro;
+	private String numero;
+	private String complemento;
+	private String bairro;
+	private String cep;
 	@ManyToOne
 	private Tutor tutor;
-
-
-
+	@OneToOne
+	private Cidade cidade;
 }

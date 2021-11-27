@@ -1,5 +1,6 @@
 package com.curso.modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -25,15 +25,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Embeddable
-@NamedQueries({ @NamedQuery(name = "Tutor.buscarTodos", query = "select a from Tutor a"),
-		@NamedQuery(name = "Tutor.buscarPorEmail", query = "select a from Tutor a where a.email = :email") })
-public class Tutor {
+@NamedQuery(name = "Tutor.buscarTodos", query = "select a from Tutor a")
+@NamedQuery(name = "Tutor.buscarPorEmail", query = "select a from Tutor a where a.email = :email")
+public class Tutor implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	@Id
 	@EqualsAndHashCode.Include
 	private Long cpf;
@@ -53,7 +56,8 @@ public class Tutor {
 	private Login login;
 	@OneToMany
 	private List<Agendamento> agendamentos = new ArrayList<>();
-
+	@OneToMany
+	private List<Endereco> enderecos = new ArrayList<>();
 	@PrePersist
 	@PreUpdate
 	public void configuraDatasCriacaoAlteracao() {
