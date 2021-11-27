@@ -38,7 +38,7 @@
 				
 				<p:column headerText="Nome"
 					style="text-align: center; width: 20px">
-					<h:outputText value="#{login.nome}" />
+					<h:outputText value="#{login.usuario}" />
 				</p:column>
 
 				<p:column headerText="Email"
@@ -61,7 +61,7 @@
 			</p:dataTable>
 			<p:confirmDialog id="confirmacaoExclusaoDialog"
 				widgetVar="confirmacaoExclusao"
-				message="Tem certeza que deseja excluir a login #{pesquisaLoginBean.loginSelecionado.nome}?"
+				message="Tem certeza que deseja excluir a login #{pesquisaLoginBean.loginSelecionado.usuario}?"
 				header="Exclusão de login" severity="alert">
 				<p:button icon="fa fa-thumbs-o-down" value="Não"
 					onclick="PF('confirmacaoExclusao').hide(); return false;" />

@@ -10,7 +10,6 @@ import javax.inject.Named;
 import com.curso.modelo.Login;
 import com.curso.service.LoginService;
 import com.curso.util.MessageUtil;
-import com.curso.util.NegocioException;
 @Named
 @ViewScoped
 public class CadastroLoginBean implements Serializable {
@@ -26,10 +25,8 @@ public class CadastroLoginBean implements Serializable {
 	public void save() {
 		try {
 			
-			this.loginService.save(login);
+			this.loginService.saveOrUpdate(login);
 			MessageUtil.sucesso("Login salvo com sucesso!");
-		} catch (NegocioException e) {
-			MessageUtil.erro(e.getMessage());
 		} catch (Exception ex) {
 			MessageUtil.erro(ex.getMessage());
 		}

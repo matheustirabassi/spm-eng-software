@@ -12,39 +12,41 @@ import javax.persistence.TypedQuery;
 import org.hibernate.exception.ConstraintViolationException;
 
 import com.curso.modelo.Login;
-import com.curso.util.NegocioException;
 import com.curso.util.jpa.Transactional;
 
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class LoginDAO implements Serializable {
+public class LoginDAO implements Serializable, GenericDAO<Login> {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private EntityManager manager;
 
+	@Override
 	@Transactional
-	public void save(Login login) throws NegocioException {
-		log.info("gravando login...");
+	public Login save(Login login) {
 		try {
+			log.info("gravando login...");
 			manager.merge(login);
 
 		} catch (ConstraintViolationException e) {
-			throw new NegocioException("Violação de restrição, provavelmente e-mail já existe.");
+			e.getCause();
 		}
+		return login;
 	}
 
+	@Override
 	@Transactional
-	public void delete(Login login) throws NegocioException {
+	public void delete(Login login) {
 		log.info("excluindo login...");
 		login = findById(login.getId());
 		try {
 			manager.remove(login);
 			manager.flush();
 		} catch (PersistenceException e) {
-			throw new NegocioException("Este login não pode ser excluído.");
+			e.getCause();
 		}
 	}
 
@@ -59,11 +61,13 @@ public class LoginDAO implements Serializable {
 		}
 	}
 
-	public Login findById(Integer id) {
+	@Override
+	public Login findById(Long id) {
 		log.info("procurando por id do login...");
 		return manager.find(Login.class, id);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<Login> findAll() {
 		log.info("procurando todos os logins...");
@@ -85,11 +89,25 @@ public class LoginDAO implements Serializable {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Login> buscarComPaginacao(int first, int pageSize) {
+	public List<Login> findWithPagination(int first, int pageSize) {
 		return manager.createNamedQuery("Login.findAll").setFirstResult(first).setMaxResults(pageSize).getResultList();
 	}
 
-	public Long encontrarQuantidadeDeLogines() {
+	public Long findNumberLogins() {
 		return manager.createQuery("select count(a) from Login a", Long.class).getSingleResult();
+	}
+
+	@Override
+	@Transactional
+	public Login saveOrUpdate(Login t) {
+		log.info("gravando login...");
+		Login login = manager.merge(t);
+		return login;
+	}
+
+	@Override
+	public void saveOrUpdateAll(List<Login> t) {
+		// TODO Auto-generated method stub
+
 	}
 }

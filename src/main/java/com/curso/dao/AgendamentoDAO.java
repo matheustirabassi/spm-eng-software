@@ -64,11 +64,16 @@ public class AgendamentoDAO implements Serializable, GenericDAO<Agendamento> {
 	}
 
 	@Override
+	@Transactional
 	public Agendamento saveOrUpdate(Agendamento t) {
-		return null;
+		log.info("gravando agendamento...");
+		return manager.merge(t);
 	}
 
 	@Override
+	@Transactional
 	public void saveOrUpdateAll(List<Agendamento> t) {
+		log.info("gravando agendamento...");
+
 	}
 }

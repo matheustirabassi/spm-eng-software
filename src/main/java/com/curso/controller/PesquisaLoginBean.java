@@ -12,7 +12,6 @@ import javax.inject.Named;
 import com.curso.modelo.Login;
 import com.curso.service.LoginService;
 import com.curso.util.MessageUtil;
-import com.curso.util.NegocioException;
 
 
 @Named
@@ -34,13 +33,9 @@ public class PesquisaLoginBean implements Serializable {
 	}
 	
 	public void delete() {
-		try {
-			loginService.delete(loginSelecionado);			
-			this.logins.remove(loginSelecionado);
-			MessageUtil.sucesso("Login " + loginSelecionado.getNome() + " excluído com sucesso.");
-		} catch (NegocioException e) {
-			MessageUtil.erro(e.getMessage());
-		}
+		loginService.delete(loginSelecionado);			
+		this.logins.remove(loginSelecionado);
+		MessageUtil.sucesso("Login " + loginSelecionado.getUsuario() + " excluído com sucesso.");
 	}
 	
 	

@@ -16,7 +16,6 @@ import com.curso.util.MessageUtil;
 
 import lombok.extern.log4j.Log4j2;
 
-
 @Log4j2
 @Named
 @SessionScoped
@@ -38,13 +37,12 @@ public class LoginBean implements Serializable {
 	public Login isValidLogin() {
 		log.info(loginService.findByEmail(email));
 		log.info("isValidLogin...");
-		login = (Login) loginService.findByEmail(email);
+		login = loginService.findByEmail(email);
 
-		if (login != null) {
-			if (!senha.equals(login.getSenha())) {
-				throw new RuntimeException("senha inválida");
-			}
+		if (login != null && !senha.equals(login.getSenha())) {
+			throw new RuntimeException("senha inválida");
 		}
+
 		return login;
 
 	}
@@ -57,7 +55,7 @@ public class LoginBean implements Serializable {
 			HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 			if ((Login) request.getSession().getAttribute("user") == null) {
 				request.getSession().setAttribute("user", user);
-				log.info("usuario não logado:" + user.getNome());
+				log.info("usuario não logado:" + user.getUsuario());
 			} else {
 				MessageUtil.alerta("Você já está logado");
 			}
