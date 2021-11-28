@@ -24,23 +24,23 @@ import lombok.NoArgsConstructor;
 @ViewScoped
 public class PesquisaAgendamentoBean implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private List<Agendamento> agendamentos = new ArrayList<>();
-	private Agendamento agendamentoSelecionado;
+  private List<Agendamento> agendamentos = new ArrayList<>();
+  private Agendamento agendamentoSelecionado;
 
-	@Inject
-	AgendamentoService tutorService;
+  @Inject
+  AgendamentoService tutorService;
 
-	@PostConstruct
-	public void inicializar() {
-		agendamentos = tutorService.findAll();
-	}
+  @PostConstruct
+  public void inicializar() {
+    agendamentos = tutorService.findAll();
+  }
 
-	public void excluir() {
-		tutorService.delete(agendamentoSelecionado);
-		this.agendamentos.remove(agendamentoSelecionado);
-		MessageUtil.sucesso("Agendamento " + agendamentoSelecionado.getId() + " excluído com sucesso.");
-	}
+  public void excluir() {
+    tutorService.delete(agendamentoSelecionado);
+    this.agendamentos.remove(agendamentoSelecionado);
+    MessageUtil.sucesso("Agendamento " + agendamentoSelecionado.getId() + " excluído com sucesso.");
+  }
 
 }

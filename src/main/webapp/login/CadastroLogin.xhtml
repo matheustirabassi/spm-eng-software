@@ -9,8 +9,7 @@
 
 	<ui:define name="corpo">
 		<f:metadata>
-			<o:viewParam name="login"
-				value="#{cadastroLoginBean.login}" />
+			<o:viewParam name="login" value="#{cadastroLoginBean.login}" />
 		</f:metadata>
 
 		<h1>Cadastro de usuários</h1>
@@ -34,8 +33,8 @@
 
 					<p:button icon="fa fa-search" value="Pesquisar"
 						outcome="/login/PesquisaLogin.xhtml" />
-						
-					
+
+
 				</p:toolbarGroup>
 			</p:toolbar>
 
@@ -45,8 +44,8 @@
 
 				<p:outputLabel value="Nome" for="nome" />
 				<p:inputText id="nome" size="60" maxlength="80"
-					value="#{cadastroLoginBean.login.usuario}"
-					required="true" validatorMessage="O nome é obrigatório." />
+					value="#{cadastroLoginBean.login.usuario}" required="true"
+					validatorMessage="O nome é obrigatório." />
 
 				<p:outputLabel value="Email" for="email" />
 				<h:panelGroup>
@@ -61,8 +60,8 @@
 
 				<p:outputLabel value="Senha" for="senha" />
 				<p:inputText id="senha" size="60" maxlength="20"
-					value="#{cadastroLoginBean.login.senha}"
-					required="true" validatorMessage="A senha é obrigatória." />
+					value="#{cadastroLoginBean.login.senha}" required="true"
+					validatorMessage="A senha é obrigatória." />
 				<p:spacer height="10px" />
 
 			</p:panelGrid>

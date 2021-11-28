@@ -21,158 +21,161 @@ import javax.faces.event.SystemEventListener;
  * @author Steve Taylor
  */
 public class ViewScopedContext implements Context, SystemEventListener {
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T> T get(final Contextual<T> component) {
-		assertActive();
 
-		if (!isJsfSubscribed) {
-			FacesContext.getCurrentInstance().getApplication().subscribeToEvent(PreDestroyViewMapEvent.class, this);
-			isJsfSubscribed = true;
-		}
+  @SuppressWarnings("unchecked")
+  @Override
+  public <T> T get(final Contextual<T> component) {
+    assertActive();
 
-		T instance = (T) getComponentInstanceMap().get(component);
+    if (!isJsfSubscribed) {
+      FacesContext.getCurrentInstance().getApplication()
+          .subscribeToEvent(PreDestroyViewMapEvent.class, this);
+      isJsfSubscribed = true;
+    }
 
-		return instance;
-	}
+    T instance = (T) getComponentInstanceMap().get(component);
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T> T get(final Contextual<T> component, final CreationalContext<T> creationalContext) {
-		assertActive();
+    return instance;
+  }
 
-		T instance = get(component);
-		if (instance == null) {
-			if (creationalContext != null) {
-				Map<Contextual<?>, Object> componentInstanceMap = getComponentInstanceMap();
-				Map<Contextual<?>, CreationalContext<?>> creationalContextMap = getCreationalInstanceMap();
+  @SuppressWarnings("unchecked")
+  @Override
+  public <T> T get(final Contextual<T> component, final CreationalContext<T> creationalContext) {
+    assertActive();
 
-				synchronized (componentInstanceMap) {
-					instance = (T) componentInstanceMap.get(component);
-					if (instance == null) {
-						instance = component.create(creationalContext);
-						if (instance != null) {
-							componentInstanceMap.put(component, instance);
-							creationalContextMap.put(component, creationalContext);
-						}
-					}
-				}
-			}
-		}
+    T instance = get(component);
+    if (instance == null) {
+      if (creationalContext != null) {
+        Map<Contextual<?>, Object> componentInstanceMap = getComponentInstanceMap();
+        Map<Contextual<?>, CreationalContext<?>> creationalContextMap = getCreationalInstanceMap();
 
-		return instance;
-	}
+        synchronized (componentInstanceMap) {
+          instance = (T) componentInstanceMap.get(component);
+          if (instance == null) {
+            instance = component.create(creationalContext);
+            if (instance != null) {
+              componentInstanceMap.put(component, instance);
+              creationalContextMap.put(component, creationalContext);
+            }
+          }
+        }
+      }
+    }
 
-	@Override
-	public Class<? extends Annotation> getScope() {
-		return SessionScoped.class;
-	}
+    return instance;
+  }
 
-	@Override
-	public boolean isActive() {
-		return getViewRoot() != null;
-	}
+  @Override
+  public Class<? extends Annotation> getScope() {
+    return SessionScoped.class;
+  }
 
-	private void assertActive() {
-		if (!isActive()) {
-			throw new ContextNotActiveException(
-					"Seam context with scope annotation @ViewScoped is not active with respect to the current thread");
-		}
-	}
+  @Override
+  public boolean isActive() {
+    return getViewRoot() != null;
+  }
 
-	@Override
-	public boolean isListenerForSource(final Object source) {
-		if (source instanceof UIViewRoot) {
-			return true;
-		}
+  private void assertActive() {
+    if (!isActive()) {
+      throw new ContextNotActiveException(
+          "Seam context with scope annotation @ViewScoped is not active with respect to the current thread");
+    }
+  }
 
-		return false;
-	}
+  @Override
+  public boolean isListenerForSource(final Object source) {
+    if (source instanceof UIViewRoot) {
+      return true;
+    }
 
-	/**
-	 * We get PreDestroyViewMapEvent events from the JSF servlet and destroy our
-	 * contextual instances. This should (theoretically!) also get fired if the
-	 * webapp closes, so there should be no need to manually track all view
-	 * scopes and destroy them at a shutdown.
-	 * 
-	 * @see javax.faces.event.SystemEventListener#processEvent(javax.faces.event.SystemEvent)
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public void processEvent(final SystemEvent event) {
-		if (event instanceof PreDestroyViewMapEvent) {
-			Map<Contextual<?>, Object> componentInstanceMap = getComponentInstanceMap();
-			Map<Contextual<?>, CreationalContext<?>> creationalContextMap = getCreationalInstanceMap();
+    return false;
+  }
 
-			if (componentInstanceMap != null) {
-				for (Map.Entry<Contextual<?>, Object> componentEntry : componentInstanceMap.entrySet()) {
-					/*
-					 * No way to inform the compiler of type <T> information, so
-					 * it has to be abandoned here :(
-					 */
-					@SuppressWarnings("rawtypes")
-					Contextual contextual = componentEntry.getKey();
-					Object instance = componentEntry.getValue();
-					@SuppressWarnings("rawtypes")
-					CreationalContext creational = creationalContextMap.get(contextual);
+  /**
+   * We get PreDestroyViewMapEvent events from the JSF servlet and destroy our contextual instances.
+   * This should (theoretically!) also get fired if the webapp closes, so there should be no need to
+   * manually track all view scopes and destroy them at a shutdown.
+   * 
+   * @see javax.faces.event.SystemEventListener#processEvent(javax.faces.event.SystemEvent)
+   */
+  @SuppressWarnings("unchecked")
+  @Override
+  public void processEvent(final SystemEvent event) {
+    if (event instanceof PreDestroyViewMapEvent) {
+      Map<Contextual<?>, Object> componentInstanceMap = getComponentInstanceMap();
+      Map<Contextual<?>, CreationalContext<?>> creationalContextMap = getCreationalInstanceMap();
 
-					contextual.destroy(instance, creational);
-				}
-			}
-		}
-	}
+      if (componentInstanceMap != null) {
+        for (Map.Entry<Contextual<?>, Object> componentEntry : componentInstanceMap.entrySet()) {
+          /*
+           * No way to inform the compiler of type <T> information, so it has to be abandoned here
+           * :(
+           */
+          @SuppressWarnings("rawtypes")
+          Contextual contextual = componentEntry.getKey();
+          Object instance = componentEntry.getValue();
+          @SuppressWarnings("rawtypes")
+          CreationalContext creational = creationalContextMap.get(contextual);
 
-	protected UIViewRoot getViewRoot() {
-		FacesContext context = FacesContext.getCurrentInstance();
+          contextual.destroy(instance, creational);
+        }
+      }
+    }
+  }
 
-		if (context != null) {
-			return context.getViewRoot();
-		}
+  protected UIViewRoot getViewRoot() {
+    FacesContext context = FacesContext.getCurrentInstance();
 
-		return null;
-	}
+    if (context != null) {
+      return context.getViewRoot();
+    }
 
-	protected Map<String, Object> getViewMap() {
-		UIViewRoot viewRoot = getViewRoot();
+    return null;
+  }
 
-		if (viewRoot != null) {
-			return viewRoot.getViewMap(true);
-		}
+  protected Map<String, Object> getViewMap() {
+    UIViewRoot viewRoot = getViewRoot();
 
-		return null;
-	}
+    if (viewRoot != null) {
+      return viewRoot.getViewMap(true);
+    }
 
-	@SuppressWarnings("unchecked")
-	private Map<Contextual<?>, Object> getComponentInstanceMap() {
-		Map<String, Object> viewMap = getViewMap();
-		Map<Contextual<?>, Object> map = (ConcurrentHashMap<Contextual<?>, Object>) viewMap.get(COMPONENT_MAP_NAME);
+    return null;
+  }
 
-		if (map == null) {
-			map = new ConcurrentHashMap<Contextual<?>, Object>();
-			viewMap.put(COMPONENT_MAP_NAME, map);
-		}
+  @SuppressWarnings("unchecked")
+  private Map<Contextual<?>, Object> getComponentInstanceMap() {
+    Map<String, Object> viewMap = getViewMap();
+    Map<Contextual<?>, Object> map =
+        (ConcurrentHashMap<Contextual<?>, Object>) viewMap.get(COMPONENT_MAP_NAME);
 
-		return map;
-	}
+    if (map == null) {
+      map = new ConcurrentHashMap<Contextual<?>, Object>();
+      viewMap.put(COMPONENT_MAP_NAME, map);
+    }
 
-	@SuppressWarnings("unchecked")
-	private Map<Contextual<?>, CreationalContext<?>> getCreationalInstanceMap() {
-		Map<String, Object> viewMap = getViewMap();
-		Map<Contextual<?>, CreationalContext<?>> map = (Map<Contextual<?>, CreationalContext<?>>) viewMap
-				.get(CREATIONAL_MAP_NAME);
+    return map;
+  }
 
-		if (map == null) {
-			map = new ConcurrentHashMap<Contextual<?>, CreationalContext<?>>();
-			viewMap.put(CREATIONAL_MAP_NAME, map);
-		}
+  @SuppressWarnings("unchecked")
+  private Map<Contextual<?>, CreationalContext<?>> getCreationalInstanceMap() {
+    Map<String, Object> viewMap = getViewMap();
+    Map<Contextual<?>, CreationalContext<?>> map =
+        (Map<Contextual<?>, CreationalContext<?>>) viewMap.get(CREATIONAL_MAP_NAME);
 
-		return map;
-	}
+    if (map == null) {
+      map = new ConcurrentHashMap<Contextual<?>, CreationalContext<?>>();
+      viewMap.put(CREATIONAL_MAP_NAME, map);
+    }
 
-	private final static String COMPONENT_MAP_NAME = "org.jboss.seam.faces.viewscope.componentInstanceMap";
+    return map;
+  }
 
-	private final static String CREATIONAL_MAP_NAME = "org.jboss.seam.faces.viewscope.creationalInstanceMap";
+  private final static String COMPONENT_MAP_NAME =
+      "org.jboss.seam.faces.viewscope.componentInstanceMap";
 
-	private boolean isJsfSubscribed = false;
+  private final static String CREATIONAL_MAP_NAME =
+      "org.jboss.seam.faces.viewscope.creationalInstanceMap";
+
+  private boolean isJsfSubscribed = false;
 }

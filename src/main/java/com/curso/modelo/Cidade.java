@@ -15,10 +15,10 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Embeddable
 @Entity
-public class Cidade extends BaseEntity{
+public class Cidade extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
-	private String nome;
-	@ManyToOne
-	private Estado estado;
+  private static final long serialVersionUID = 1L;
+  private String nome;
+  @ManyToOne
+  private Estado estado;
 }

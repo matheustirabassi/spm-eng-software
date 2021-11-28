@@ -3,16 +3,16 @@ package com.curso.dao;
 import java.util.List;
 
 public interface GenericDAO<T> {
-	T findById(Long id);
+  T findById(Long id);
 
-	List<T> findAll();
+  List<T> findAll();
 
-	T save(T t);
+  T save(T t);
 
-	T saveOrUpdate(T t);
+  T saveOrUpdate(T t);
 
-	void saveOrUpdateAll(List<T> t);
+  void saveOrUpdateAll(List<T> t);
 
-	void delete(T t);
+  void delete(T t);
 
 }

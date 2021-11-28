@@ -15,16 +15,17 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@NamedQuery(name = "Login.findByEmailSenha", query = "SELECT c FROM Login c " + "WHERE c.email = :email AND c.senha = :senha")
+@NamedQuery(name = "Login.findByEmailSenha",
+    query = "SELECT c FROM Login c " + "WHERE c.email = :email AND c.senha = :senha")
 @NamedQuery(name = "Login.findByEmail", query = "select a from Login a where a.email = :email")
 @NamedQuery(name = "Login.findAll", query = "select a from Login a")
 @Entity
 public class Login extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
-	private String usuario;
-	@Column(unique = true)
-	private String email;
-	private String senha;
-	
+  private static final long serialVersionUID = 1L;
+  private String usuario;
+  @Column(unique = true)
+  private String email;
+  private String senha;
+
 }

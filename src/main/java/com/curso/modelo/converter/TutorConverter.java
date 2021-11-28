@@ -12,31 +12,31 @@ import com.curso.util.cdi.CDIServiceLocator;
 @FacesConverter(forClass = Tutor.class)
 public class TutorConverter implements Converter<Tutor> {
 
-	private TutorDAO dao;
+  private TutorDAO dao;
 
-	public TutorConverter() {
-		dao = CDIServiceLocator.getBean(TutorDAO.class);
-	}
+  public TutorConverter() {
+    dao = CDIServiceLocator.getBean(TutorDAO.class);
+  }
 
-	@Override // converte tipo String para objeto - necessário mapear do modelo relacional
-				// para obj
-	public Tutor getAsObject(FacesContext context, UIComponent component, String value) {
-		if (value != null) {
-			return dao.findById(Long.parseLong(value));
-		}
+  @Override // converte tipo String para objeto - necessário mapear do modelo relacional
+            // para obj
+  public Tutor getAsObject(FacesContext context, UIComponent component, String value) {
+    if (value != null) {
+      return dao.findById(Long.parseLong(value));
+    }
 
-		return null;
-	}
+    return null;
+  }
 
-	@Override // converte de objeto para codigo - necessário mapear do modelo obj para
-				// relacional
-	public String getAsString(FacesContext context, UIComponent component, Tutor value) {
-		if (value != null) {
-			Long codigo = value.getCpf();
-			return codigo == null ? null : codigo.toString();
-		}
+  @Override // converte de objeto para codigo - necessário mapear do modelo obj para
+            // relacional
+  public String getAsString(FacesContext context, UIComponent component, Tutor value) {
+    if (value != null) {
+      Long codigo = value.getCpf();
+      return codigo == null ? null : codigo.toString();
+    }
 
-		return "";
-	}
+    return "";
+  }
 
 }

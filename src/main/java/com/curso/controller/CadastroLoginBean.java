@@ -10,46 +10,47 @@ import javax.inject.Named;
 import com.curso.modelo.Login;
 import com.curso.service.LoginService;
 import com.curso.util.MessageUtil;
+
 @Named
 @ViewScoped
 public class CadastroLoginBean implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private Login login;
-	
-	@Inject
-	private LoginService loginService;
-	
-	
-	public void save() {
-		try {
-			
-			this.loginService.saveOrUpdate(login);
-			MessageUtil.sucesso("Login salvo com sucesso!");
-		} catch (Exception ex) {
-			MessageUtil.erro(ex.getMessage());
-		}
-		
-		this.limpar();
-	}
-	
-	@PostConstruct
-	public void inicializar(){
-		limpar();		
-	}	
+  private Login login;
 
-	public void limpar() {
-		this.login = new Login();		
-	}	
+  @Inject
+  private LoginService loginService;
 
-	public Login getLogin() {
-		return login;
-	}
 
-	public void setLogin(Login login) {
-		this.login = login;
-	}
-	
+  public void save() {
+    try {
+
+      this.loginService.saveOrUpdate(login);
+      MessageUtil.sucesso("Login salvo com sucesso!");
+    } catch (Exception ex) {
+      MessageUtil.erro(ex.getMessage());
+    }
+
+    this.limpar();
+  }
+
+  @PostConstruct
+  public void inicializar() {
+    limpar();
+  }
+
+  public void limpar() {
+    this.login = new Login();
+  }
+
+  public Login getLogin() {
+    return login;
+  }
+
+  public void setLogin(Login login) {
+    this.login = login;
+  }
+
 
 }

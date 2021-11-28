@@ -18,10 +18,10 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 @Embeddable
 @Entity
-public class Estado extends BaseEntity{
+public class Estado extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
-	private String nome;
-	@OneToMany(mappedBy = "estado")
-	private Set<Cidade> cidades = new HashSet<>();
+  private static final long serialVersionUID = 1L;
+  private String nome;
+  @OneToMany(mappedBy = "estado")
+  private Set<Cidade> cidades = new HashSet<>();
 }

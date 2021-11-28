@@ -16,16 +16,16 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @EqualsAndHashCode(callSuper = true)
 @Entity
-public class Endereco extends BaseEntity{
+public class Endereco extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
-	private String logradouro;
-	private String numero;
-	private String complemento;
-	private String bairro;
-	private String cep;
-	@ManyToOne
-	private Tutor tutor;
-	@OneToOne
-	private Cidade cidade;
+  private static final long serialVersionUID = 1L;
+  private String logradouro;
+  private String numero;
+  private String complemento;
+  private String bairro;
+  private String cep;
+  @ManyToOne
+  private Tutor tutor;
+  @OneToOne
+  private Cidade cidade;
 }

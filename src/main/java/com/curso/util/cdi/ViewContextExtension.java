@@ -11,16 +11,13 @@ import javax.enterprise.inject.spi.Extension;
  *
  * @author Steve Taylor
  */
-public class ViewContextExtension implements Extension
-{
-	public void addScope(@Observes final BeforeBeanDiscovery event)
-	{
-		event.addScope(SessionScoped.class, true, true);
-	}
+public class ViewContextExtension implements Extension {
+  public void addScope(@Observes final BeforeBeanDiscovery event) {
+    event.addScope(SessionScoped.class, true, true);
+  }
 
-	public void registerContext(@Observes final AfterBeanDiscovery event)
-	{
-		event.addContext(new ViewScopedContext());
-	}
-	
+  public void registerContext(@Observes final AfterBeanDiscovery event) {
+    event.addContext(new ViewScopedContext());
+  }
+
 }

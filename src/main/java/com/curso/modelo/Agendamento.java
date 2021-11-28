@@ -19,13 +19,13 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @Entity
 @NamedQuery(name = "Agendamento.buscarTodos", query = "select f from Agendamento f")
-public class Agendamento extends BaseEntity{
-	
-	private static final long serialVersionUID = 1L;
-	private Date dataHoraMarcada;
-	private String observacao;
-	@ManyToOne
-	private Tutor tutor;
+public class Agendamento extends BaseEntity {
+
+  private static final long serialVersionUID = 1L;
+  private Date dataHoraMarcada;
+  private String observacao;
+  @ManyToOne
+  private Tutor tutor;
 
 
 

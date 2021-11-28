@@ -25,27 +25,27 @@ import lombok.NoArgsConstructor;
 @ViewScoped
 public class PesquisaTutorBean implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private List<Tutor> tutores = new ArrayList<>();
-	private Tutor tutorSelecionado;
+  private List<Tutor> tutores = new ArrayList<>();
+  private Tutor tutorSelecionado;
 
-	@Inject
-	TutorService tutorService;
+  @Inject
+  TutorService tutorService;
 
-	@PostConstruct
-	public void inicializar() {
-		tutores = tutorService.buscarTodos();
-	}
+  @PostConstruct
+  public void inicializar() {
+    tutores = tutorService.buscarTodos();
+  }
 
-	public void excluir() {
-		try {
-			tutorService.excluir(tutorSelecionado);
-			this.tutores.remove(tutorSelecionado);
-			MessageUtil.sucesso("Tutor " + tutorSelecionado.getNome() + " excluído com sucesso.");
-		} catch (NegocioException e) {
-			MessageUtil.erro(e.getMessage());
-		}
-	}
+  public void excluir() {
+    try {
+      tutorService.excluir(tutorSelecionado);
+      this.tutores.remove(tutorSelecionado);
+      MessageUtil.sucesso("Tutor " + tutorSelecionado.getNome() + " excluído com sucesso.");
+    } catch (NegocioException e) {
+      MessageUtil.erro(e.getMessage());
+    }
+  }
 
 }

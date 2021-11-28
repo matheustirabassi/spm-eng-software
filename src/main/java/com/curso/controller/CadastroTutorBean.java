@@ -22,36 +22,36 @@ import lombok.Data;
 @ViewScoped
 public class CadastroTutorBean implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private Tutor tutor;
-	private List<Sexo> sexos;
+  private Tutor tutor;
+  private List<Sexo> sexos;
 
-	@Inject
-	private TutorService tutorService;
+  @Inject
+  private TutorService tutorService;
 
-	public void salvar() {
-		try {
+  public void salvar() {
+    try {
 
-			this.tutorService.salvar(tutor);
-			MessageUtil.sucesso("Tutor salvo com sucesso!");
-		} catch (NegocioException e) {
-			MessageUtil.erro(e.getMessage());
-		} catch (Exception ex) {
-			MessageUtil.erro(ex.getMessage());
-		}
+      this.tutorService.salvar(tutor);
+      MessageUtil.sucesso("Tutor salvo com sucesso!");
+    } catch (NegocioException e) {
+      MessageUtil.erro(e.getMessage());
+    } catch (Exception ex) {
+      MessageUtil.erro(ex.getMessage());
+    }
 
-		this.limpar();
-	}
+    this.limpar();
+  }
 
-	@PostConstruct
-	public void inicializar() {
-		sexos = Arrays.asList(Sexo.values());
-		limpar();
-	}
+  @PostConstruct
+  public void inicializar() {
+    sexos = Arrays.asList(Sexo.values());
+    limpar();
+  }
 
-	public void limpar() {
-		this.tutor = new Tutor();
-	}
+  public void limpar() {
+    this.tutor = new Tutor();
+  }
 
 }

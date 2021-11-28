@@ -4,10 +4,10 @@ import java.util.List;
 
 import com.curso.modelo.Login;
 
-public interface LoginService extends GenericService<Login>{
+public interface LoginService extends GenericService<Login> {
 
-	public Login findByEmail(String email);
+  public Login findByEmail(String email);
 
-	public List<Login> findByName(String nome);
+  public List<Login> findByName(String nome);
 
 }

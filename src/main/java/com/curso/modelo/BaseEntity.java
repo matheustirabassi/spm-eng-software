@@ -18,40 +18,37 @@ import lombok.Data;
 
 @Data
 @MappedSuperclass
-public abstract class BaseEntity implements Serializable{
+public abstract class BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
-	@NotNull
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataCriacao;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataModificacao;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  private Long id;
+  @NotNull
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date dataCriacao;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date dataModificacao;
 
-	protected BaseEntity() {
-	}
+  protected BaseEntity() {}
 
-	protected BaseEntity(@NotNull Date dataCriacao, Date dataModificacao) {
-		this.dataCriacao = dataCriacao;
-		this.dataModificacao = dataModificacao;
-	}
+  protected BaseEntity(@NotNull Date dataCriacao, Date dataModificacao) {
+    this.dataCriacao = dataCriacao;
+    this.dataModificacao = dataModificacao;
+  }
 
-	@PrePersist
-	@PreUpdate
-	public void configuraDatasCriacaoAlteracao() {
-		this.dataModificacao = new Date();
+  @PrePersist
+  @PreUpdate
+  public void configuraDatasCriacaoAlteracao() {
+    this.dataModificacao = new Date();
 
-		if (this.dataCriacao == null) {
-			this.dataCriacao = new Date();
-		}
-	}
-	
-	
+    if (this.dataCriacao == null) {
+      this.dataCriacao = new Date();
+    }
+  }
 
-	
+
 
 }

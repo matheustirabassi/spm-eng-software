@@ -35,40 +35,40 @@ import lombok.NoArgsConstructor;
 @NamedQuery(name = "Tutor.buscarTodos", query = "select a from Tutor a")
 @NamedQuery(name = "Tutor.buscarPorEmail", query = "select a from Tutor a where a.email = :email")
 public class Tutor implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
-	@Id
-	@EqualsAndHashCode.Include
-	private Long cpf;
-	private String nome;
-	@Column(unique = true)
-	private String email;
-	@Enumerated(EnumType.STRING)
-	private Sexo sexo;
-	private Date dataNascimento;
-	private String telefone;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataCriacao;
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataModificacao;
 
-	@OneToOne
-	private Login login;
-	@OneToMany
-	private List<Agendamento> agendamentos = new ArrayList<>();
-	@OneToMany
-	private List<Endereco> enderecos = new ArrayList<>();
-	@PrePersist
-	@PreUpdate
-	public void configuraDatasCriacaoAlteracao() {
-		this.dataModificacao = new Date();
+  private static final long serialVersionUID = 1L;
+  @Id
+  @EqualsAndHashCode.Include
+  private Long cpf;
+  private String nome;
+  @Column(unique = true)
+  private String email;
+  @Enumerated(EnumType.STRING)
+  private Sexo sexo;
+  private Date dataNascimento;
+  private String telefone;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date dataCriacao;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date dataModificacao;
 
-		if (this.dataCriacao == null) {
-			this.dataCriacao = new Date();
-		}
-	}
+  @OneToOne
+  private Login login;
+  @OneToMany
+  private List<Agendamento> agendamentos = new ArrayList<>();
+  @OneToMany
+  private List<Endereco> enderecos = new ArrayList<>();
 
-	
-	
+  @PrePersist
+  @PreUpdate
+  public void configuraDatasCriacaoAlteracao() {
+    this.dataModificacao = new Date();
+
+    if (this.dataCriacao == null) {
+      this.dataCriacao = new Date();
+    }
+  }
+
+
 
 }
