@@ -2,11 +2,9 @@ package com.curso.modelo;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

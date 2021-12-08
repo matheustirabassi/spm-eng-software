@@ -2,10 +2,8 @@ package com.curso.service.impl;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-
 import com.curso.dao.GenericDAO;
 import com.curso.service.GenericService;
 

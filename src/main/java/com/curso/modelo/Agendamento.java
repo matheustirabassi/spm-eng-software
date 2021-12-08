@@ -1,12 +1,10 @@
 package com.curso.modelo;
 
 import java.util.Date;
-
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

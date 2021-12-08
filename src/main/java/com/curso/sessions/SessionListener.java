@@ -2,7 +2,6 @@ package com.curso.sessions;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 

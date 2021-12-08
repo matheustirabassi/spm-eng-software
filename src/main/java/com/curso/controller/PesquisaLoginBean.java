@@ -3,12 +3,10 @@ package com.curso.controller;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import com.curso.modelo.Login;
 import com.curso.service.LoginService;
 import com.curso.util.MessageUtil;

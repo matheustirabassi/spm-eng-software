@@ -2,9 +2,7 @@ package com.curso.service.impl;
 
 import java.util.Collections;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import com.curso.dao.AgendamentoDAO;
 import com.curso.dao.GenericDAO;
 import com.curso.modelo.Agendamento;

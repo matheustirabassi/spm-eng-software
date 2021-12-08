@@ -1,0 +1,160 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.12.0/css/all.min-jsf.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
+
+
+	<ui:define name="titulo">Tutor</ui:define>
+
+	<ui:define name="corpo">
+
+		<f:metadata>
+			<o:viewParam name="tutor" value="#{cadastroTutorBean.tutor}" />
+		</f:metadata>
+
+		<h1>Tutor</h1>
+
+		<h:form id="frmCadastro">
+			<p:messages id="messages" showDetail="false" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:button icon="fa fa-search" value="Pesquisar"
+						outcome="/restricted/tutor/PesquisaTutor.xhtml" />
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:wizard>
+				<p:tab id="personal">
+					<p:panel header="Detalhes pessoais">
+						<p:panelGrid columns="2" id="painel"
+							style="width: 100%; margin-top: 20px"
+							columnClasses="rotulo, campo">
+							<p:outputLabel value="CPF" for="cpf" />
+
+
+							<p:inputText id="cpf" size="11" maxlength="11"
+								value="#{cadastroTutorBean.tutor.cpf}" />
+
+							<p:outputLabel value="Nome completo" for="nome" />
+							<p:inputText id="nome" size="40" maxlength="40"
+								value="#{cadastroTutorBean.tutor.nome}" required="true"
+								validatorMessage="A descrição é obrigatória." />
+
+							<p:outputLabel value="Email" for="email" />
+							<h:panelGroup>
+								<p:inputText id="email" size="40" maxlength="40" required="true"
+									validatorMessage="O e-mail é obrigatório"
+									value="#{cadastroTutorBean.tutor.email}">
+									<f:validateRegex
+										pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+								</p:inputText>
+								<p:watermark for="email" value="E-mail" />
+							</h:panelGroup>
+
+							<p:outputLabel value="Telefone" for="tel" />
+							<p:inputMask id="tel" size="14" maxlength="14"
+								value="#{cadastroTutorBean.tutor.telefone}"
+								mask="(99)99999-9999" />
+
+							<p:outputLabel value="Data de Nascimento" for="dataNascimento" />
+							<p:calendar id="dataNascimento" size="10"
+								value="#{cadastroTutorBean.tutor.dataNascimento}"
+								pattern="dd/MM/yyyy" />
+
+							<p:outputLabel value="Sexo" for="sexo" />
+							<p:selectOneMenu id="sexo"
+								value="#{cadastroTutorBean.tutor.sexo}">
+								<f:selectItem itemLabel="Selecione o sexo" />
+								<f:selectItems value="#{cadastroTutorBean.sexos}" var="sexo"
+									itemLabel="#{sexo}" itemValue="#{sexo}" />
+							</p:selectOneMenu>
+						</p:panelGrid>
+					</p:panel>
+				</p:tab>
+				<p:tab id="address">
+					<p:panel header="Detalhes de Endereço">
+						<h:panelGrid columns="2" columnClasses="label, value">
+							<h:outputText value="Rua:" for="logradouro" />
+							<h:inputText id="logradouro"
+								value="#{cadastroTutorBean.tutor.endereco.logradouro}" />
+
+							<h:outputText value="Numero" for="numero" />
+							<h:inputText id="numero"
+								value="#{cadastroTutorBean.tutor.endereco.numero}" />
+
+							<h:outputText value="Complemento:" for="complemento" />
+							<h:inputText id="complemento"
+								value="#{cadastroTutorBean.tutor.endereco.complemento}" />
+
+							<h:outputText value="Bairro" for="bairro" />
+							<h:inputText id="bairro"
+								value="#{cadastroTutorBean.tutor.endereco.bairro}" />
+
+							<h:outputText value="CEP:" for="cep" />
+							<h:inputText id="cep"
+								value="#{cadastroTutorBean.tutor.endereco.cep}" />
+
+							<h:outputText value="Cidade:" for="cidade" />
+							<h:inputText id="cidade"
+								value="#{cadastroTutorBean.tutor.endereco.cidade.nome}" />
+							
+							<h:outputText value="Estado" for="estado" />
+							<h:inputText id="estado"
+								value="#{cadastroTutorBean.tutor.endereco.cidade.estado.nome}" />
+						</h:panelGrid>
+					</p:panel>
+				</p:tab>
+				<p:tab id="login">
+					<p:panel header="Login">
+						<h:panelGrid columns="2" columnClasses="label, value">
+							<h:outputText value="Usuário" for="usuario" />
+							<h:inputText id="usuario"
+								value="#{cadastroTutorBean.tutor.login.usuario}" />
+							<h:outputText value="Senha" for="senha" />
+							<p:password id="senha"
+								value="#{cadastroTutorBean.tutor.login.senha}" />
+						</h:panelGrid>
+					</p:panel>
+				</p:tab>
+				<p:tab id="confirm">
+					<p:panel header="Confirmation">
+						<h:panelGrid id="confirmation" columns="6">
+							<h:outputText value="Nome: " />
+							<h:outputText value="#{cadastroTutorBean.tutor.nome}" />
+							<h:outputText value="CPF: " />
+							<h:outputText value="#{cadastroTutorBean.tutor.cpf}" />
+							<h:outputText value="Rua: " />
+							<h:outputText
+								value="#{cadastroTutorBean.tutor.endereco.logradouro}" />
+							<h:outputText value="Complemento:" />
+							<h:outputText
+								value="#{cadastroTutorBean.tutor.endereco.complemento}" />
+							<h:outputText value="Nmr" />
+							<h:outputText value="#{cadastroTutorBean.tutor.endereco.numero}" />
+							<h:outputText value="Bairro:" />
+							<h:outputText value="#{cadastroTutorBean.tutor.endereco.bairro}" />
+							<h:outputText value="CEP:" />
+							<h:outputText value="#{cadastroTutorBean.tutor.endereco.cep}" />
+							<h:outputText value="Cidade" />
+							<h:outputText
+								value="#{cadastroTutorBean.tutor.endereco.cidade.nome}" />
+							<h:outputText value="Estado" />
+							<h:outputText
+								value="#{cadastroTutorBean.tutor.endereco.cidade.estado.nome}" />
+						</h:panelGrid>
+						<p:commandButton value="Submit"
+							action="#{cadastroTutorBean.salvar}" />
+					</p:panel>
+				</p:tab>
+			</p:wizard>
+		</h:form>
+	</ui:define>
+</ui:composition>

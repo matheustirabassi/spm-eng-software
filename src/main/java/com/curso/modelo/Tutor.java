@@ -4,13 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -18,9 +19,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import com.curso.modelo.enums.Sexo;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -52,12 +51,14 @@ public class Tutor implements Serializable {
   @Temporal(TemporalType.TIMESTAMP)
   private Date dataModificacao;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.PERSIST)
+  @JoinColumn(name = "tutor_id")
   private Login login;
   @OneToMany
   private List<Agendamento> agendamentos = new ArrayList<>();
-  @OneToMany
-  private List<Endereco> enderecos = new ArrayList<>();
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "endereco_id")
+  private Endereco endereco;
 
   @PrePersist
   @PreUpdate

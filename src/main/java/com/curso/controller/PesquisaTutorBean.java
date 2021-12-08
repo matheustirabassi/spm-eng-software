@@ -3,17 +3,14 @@ package com.curso.controller;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import com.curso.modelo.Tutor;
 import com.curso.service.TutorService;
 import com.curso.util.MessageUtil;
 import com.curso.util.NegocioException;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -2,23 +2,16 @@ package com.curso.dao;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
-
-import org.hibernate.exception.ConstraintViolationException;
-
 import com.curso.modelo.Tutor;
-import com.curso.util.NegocioException;
 import com.curso.util.jpa.Transactional;
-
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class TutorDAO implements Serializable {
+public class TutorDAO implements Serializable, GenericDAO<Tutor> {
 
   private static final long serialVersionUID = 1L;
 
@@ -27,26 +20,19 @@ public class TutorDAO implements Serializable {
 
 
   @Transactional
-  public void save(Tutor tutor) throws NegocioException {
+  public Tutor save(Tutor tutor) {
     log.info("gravando tutor...");
-    try {
-      manager.merge(tutor);
-
-    } catch (ConstraintViolationException e) {
-      throw new NegocioException("Violação de restrição, provavelmente e-mail já existe.");
-    }
+    manager.merge(tutor);
+    return tutor;
   }
 
   @Transactional
-  public void delete(Tutor tutor) throws NegocioException {
+  public void delete(Tutor tutor) {
     log.info("excluindo tutor...");
     tutor = findById(tutor.getCpf());
-    try {
-      manager.remove(tutor);
-      manager.flush();
-    } catch (PersistenceException e) {
-      throw new NegocioException("Este tutor não pode ser excluído.");
-    }
+    manager.remove(tutor);
+    manager.flush();
+
   }
 
   public Tutor getTutor(String email, String senha) {
@@ -95,5 +81,17 @@ public class TutorDAO implements Serializable {
   public Long encontrarQuantidadeDeTutores() {
     log.info("buscando a quantidade de tutores...");
     return manager.createQuery("select count(a) from Tutor a", Long.class).getSingleResult();
+  }
+
+  @Override
+  public Tutor saveOrUpdate(Tutor t) {
+    log.info("gravando tutor...");
+    return manager.merge(t);
+  }
+
+  @Override
+  public void saveOrUpdateAll(List<Tutor> t) {
+    // TODO Auto-generated method stub
+
   }
 }

@@ -1,14 +1,13 @@
 package com.curso.service.impl;
 
+import java.util.Collections;
 import java.util.List;
-
 import javax.inject.Inject;
-
+import javax.persistence.NoResultException;
 import com.curso.dao.GenericDAO;
 import com.curso.dao.LoginDAO;
 import com.curso.modelo.Login;
 import com.curso.service.LoginService;
-import java.util.Collections;
 
 public class LoginServiceImpl extends GenericServiceImpl<Login> implements LoginService {
 
@@ -32,7 +31,13 @@ public class LoginServiceImpl extends GenericServiceImpl<Login> implements Login
 
   @Override
   public Login findByEmail(String email) {
-    return loginDAO.findByEmail(email);
+    try {
+      return loginDAO.findByEmail(email);
+    } catch (NoResultException e) {
+      e.getMessage();
+    }
+    return null;
+
   }
 
 

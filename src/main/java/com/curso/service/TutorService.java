@@ -2,9 +2,7 @@ package com.curso.service;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import com.curso.dao.TutorDAO;
 import com.curso.modelo.Tutor;
 import com.curso.util.NegocioException;
@@ -17,7 +15,7 @@ public class TutorService implements Serializable {
   private TutorDAO tutorDAO;
 
 
-  public void salvar(Tutor tutor) throws NegocioException {
+  public void salvar(Tutor tutor) {
     this.tutorDAO.save(tutor);
   }
 

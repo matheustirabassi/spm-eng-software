@@ -4,7 +4,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-
 import com.curso.dao.LoginDAO;
 import com.curso.modelo.Login;
 import com.curso.util.cdi.CDIServiceLocator;

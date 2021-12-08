@@ -1,10 +1,10 @@
 package com.curso.modelo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,8 +24,10 @@ public class Endereco extends BaseEntity {
   private String complemento;
   private String bairro;
   private String cep;
-  @ManyToOne
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "tutor_id")
   private Tutor tutor;
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "cidade_id")
   private Cidade cidade;
 }

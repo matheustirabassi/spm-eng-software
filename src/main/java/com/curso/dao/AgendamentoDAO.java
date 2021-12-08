@@ -3,14 +3,11 @@ package com.curso.dao;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
-
 import com.curso.modelo.Agendamento;
 import com.curso.util.jpa.Transactional;
-
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2

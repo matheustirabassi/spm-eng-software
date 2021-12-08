@@ -3,7 +3,6 @@ package com.curso.util.cdi;
 import java.lang.annotation.Annotation;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
 import javax.enterprise.context.ContextNotActiveException;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.context.spi.Context;

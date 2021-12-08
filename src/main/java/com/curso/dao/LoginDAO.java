@@ -2,18 +2,14 @@ package com.curso.dao;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
-
 import org.hibernate.exception.ConstraintViolationException;
-
 import com.curso.modelo.Login;
 import com.curso.util.jpa.Transactional;
-
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
