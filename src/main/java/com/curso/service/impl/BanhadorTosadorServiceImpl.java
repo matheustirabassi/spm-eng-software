@@ -1,14 +1,18 @@
 package com.curso.service.impl;
 
-import java.util.List;
+import com.curso.dao.BanhadorTosadorDAO;
 import com.curso.dao.GenericDAO;
 import com.curso.modelo.BanhadorTosador;
 import com.curso.service.BanhadorTosadorService;
+import java.util.List;
+import javax.inject.Inject;
 
 public class BanhadorTosadorServiceImpl extends GenericServiceImpl<BanhadorTosador>
     implements BanhadorTosadorService {
 
   private static final long serialVersionUID = 1L;
+  @Inject
+  private BanhadorTosadorDAO banhadorTosadorDao;
 
   @Override
   public List<BanhadorTosador> findByExample(BanhadorTosador example, Integer start,
@@ -19,8 +23,7 @@ public class BanhadorTosadorServiceImpl extends GenericServiceImpl<BanhadorTosad
 
   @Override
   protected GenericDAO<BanhadorTosador> getDAO() {
-    // TODO Auto-generated method stub
-    return null;
+    return banhadorTosadorDao;
   }
 
 }

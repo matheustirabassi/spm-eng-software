@@ -16,6 +16,7 @@ hs_err_pid*
 .project
 .settings/
 /target/**
+m2e-wtp
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup

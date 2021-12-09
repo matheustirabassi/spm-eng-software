@@ -5,10 +5,10 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
-	<ui:define name="titulo">Tutores</ui:define>
+	<ui:define name="titulo">Banhadores</ui:define>
 
 	<ui:define name="corpo">
-		<h1>Tutores</h1>
+		<h1>Banhadores</h1>
 
 		<h:form id="frmPesquisa">
 
@@ -19,55 +19,56 @@
 			<p:toolbar style="margin-top: 20px">
 				<p:toolbarGroup>
 					<p:commandButton icon="fa fa-plus" value="Novo" id="botaoNovo"
-						action="/restricted/tutor/CadastroTutor.xhtml" />
+						action="/restricted/banhadortosador/CadastroBanhadorTosador.xhtml" />
 
 				</p:toolbarGroup>
 			</p:toolbar>
 
-			<p:dataTable id="tutoresTable" value="#{pesquisaTutorBean.tutores}"
-				var="tutor" style="margin-top: 20px"
-				emptyMessage="Nenhuma tutor encontrada." rows="10" paginator="true"
+			<p:dataTable id="banhadorTosadoresTable" value="#{pesquisaBanhadorTosadorBean.banhadorTosadores}"
+				var="banhadorTosador" style="margin-top: 20px"
+				emptyMessage="Nenhuma banhadorTosador encontrada." rows="10" paginator="true"
 				paginatorAlwaysVisible="true" paginatorPosition="bottom"
 				lazy="false" rowsPerPageTemplate="5,10,15">
 
 				<p:column headerText="CPF" style="width: 100px; text-align: center">
-					<h:outputText value="#{tutor.cpf}" />
+					<h:outputText value="#{banhadorTosador.cpf}" />
 				</p:column>
 
 				<p:column headerText="Nome" style="width: 200px; text-align: center">
-					<h:outputText value="#{tutor.nome}" />
+					<h:outputText value="#{banhadorTosador.nome}" />
 				</p:column>
 
 
 				<p:column headerText="Telefone"
 					style="width: 200px; text-align: center">
-					<h:outputText value="#{tutor.telefone}" />
+					<h:outputText value="#{banhadorTosador.telefone}" />
 				</p:column>
 
 				<p:column style="width: 100px; text-align: center">
-					<p:button outcome="CadastroTutor" icon="fa fa-edit" title="Editar">
-						<f:param name="tutor" value="#{tutor.cpf}" />
+					<p:button outcome="CadastroBanhadorTosador.xhtml" icon="fa fa-edit"
+						title="Editar">
+						<f:param name="banhadorTosador" value="#{banhadorTosador.id}" />
 					</p:button>
 					<p:commandButton icon="fa fa-trash-o" title="Excluir"
 						onclick="PF('confirmacaoExclusao').show();" process="@this">
 						<f:setPropertyActionListener
-							target="#{pesquisaTutorBean.tutorSelecionado}" value="#{tutor}" />
+							target="#{pesquisaBanhadorTosadorBean.banhadorTosadorSelecionado}" value="#{banhadorTosador}" />
 					</p:commandButton>
-
 				</p:column>
+				
 			</p:dataTable>
 
 			<p:confirmDialog id="confirmacaoExclusaoDialog"
 				widgetVar="confirmacaoExclusao"
-				message="Tem certeza que deseja excluir o tutor #{pesquisaTutorBean.tutorSelecionado.cpf}?"
-				header="Exclusão de tutor" severity="alert">
+				message="Tem certeza que deseja excluir o banhadorTosador #{pesquisaBanhadorTosadorBean.banhadorTosadorSelecionado.cpf}?"
+				header="Exclusão de banhadorTosador" severity="alert">
 
 				<p:button icon="fa fa-thumbs-o-down" value="Não"
 					onclick="PF('confirmacaoExclusao').hide(); return false;" />
 				<p:commandButton icon="fa fa-thumbs-o-up" value="Sim"
-					update=":frmPesquisa:tutoresTable"
+					update=":frmPesquisa:banhadorTosadoresTable"
 					onclick="PF('confirmacaoExclusao').hide();"
-					action="#{pesquisaTutorBean.excluir}" />
+					action="#{pesquisaBanhadorTosadorBean.delete}" />
 			</p:confirmDialog>
 
 

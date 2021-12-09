@@ -1,5 +1,9 @@
 package com.curso.controller;
 
+import com.curso.modelo.BanhadorTosador;
+import com.curso.modelo.enums.Sexo;
+import com.curso.service.BanhadorTosadorService;
+import com.curso.util.MessageUtil;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -7,10 +11,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import com.curso.modelo.BanhadorTosador;
-import com.curso.modelo.enums.Sexo;
-import com.curso.service.BanhadorTosadorService;
-import com.curso.util.MessageUtil;
 import lombok.Data;
 
 @Data
@@ -36,12 +36,12 @@ public class CadastroBanhadorTosadorBean implements Serializable {
 
   @PostConstruct
   public void inicializar() {
-    sexos = Arrays.asList(Sexo.values());
     limpar();
   }
 
   public void limpar() {
     this.banhadorTosador = new BanhadorTosador();
+    sexos = Arrays.asList(Sexo.values());
   }
 
 }

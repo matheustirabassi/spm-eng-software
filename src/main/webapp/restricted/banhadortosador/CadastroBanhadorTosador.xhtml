@@ -5,14 +5,14 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
-	<ui:define name="titulo">BanhadorTosador</ui:define>
+	<ui:define name="titulo">Banhador Tosador</ui:define>
 
 	<ui:define name="corpo">
 		<f:metadata>
-			<o:viewParam name="BanhadorTosador" value="#{cadastroBanhadorTosadorBean.banhadorTosador}" />
+			<o:viewParam name="banhadorTosador" value="#{cadastroBanhadorTosadorBean.banhadorTosador}" />
 		</f:metadata>
 
-		<h1>BanhadorTosador</h1>
+		<h1>Banhador Tosador</h1>
 
 		<h:form id="frmCadastro">
 
@@ -30,7 +30,7 @@
 						class="ui-icon ui-icon-grip-dotted-vertical" />
 					</span>
 					<p:button icon="fa fa-search" value="Pesquisar"
-						outcome="/restricted/BanhadorTosador/PesquisaBanhadorTosador.xhtml" />
+						outcome="/restricted/banhadortosador/PesquisaBanhadorTosador.xhtml" />
 				</p:toolbarGroup>
 			</p:toolbar>
 
