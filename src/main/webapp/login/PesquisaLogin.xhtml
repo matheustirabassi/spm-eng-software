@@ -23,22 +23,19 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 
-			<p:dataTable id="loginsTable"
-				value="#{pesquisaLoginBean.logins}"
+			<p:dataTable id="loginsTable" value="#{pesquisaLoginBean.logins}"
 				var="login" style="margin-top: 20px"
-				emptyMessage="Nenhum login encontrado." rows="10"
-				paginator="true" paginatorAlwaysVisible="false"
-				paginatorPosition="bottom" lazy="false"
-				rowsPerPageTemplate="5,10,15">
+				emptyMessage="Nenhum login encontrado." rows="10" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				lazy="false" rowsPerPageTemplate="5,10,15">
 
 				<p:column headerText="Id" style="text-align: left; width: 60px"
 					sortBy="#{login.id}" filterBy="#{login.id}">
 					<h:outputText value="#{login.id}" />
 				</p:column>
-				
-				<p:column headerText="Nome"
-					style="text-align: center; width: 20px">
-					<h:outputText value="#{login.nome}" />
+
+				<p:column headerText="Nome" style="text-align: center; width: 20px">
+					<h:outputText value="#{login.usuario}" />
 				</p:column>
 
 				<p:column headerText="Email"
@@ -47,21 +44,19 @@
 				</p:column>
 
 				<p:column style="width: 60px; text-align: center">
-					<p:button outcome="CadastroLogin" icon="fa fa-edit"
-						title="Editar">
+					<p:button outcome="CadastroLogin" icon="fa fa-edit" title="Editar">
 						<f:param name="login" value="#{login.id}" />
 					</p:button>
 					<p:commandButton icon="fa fa-trash-o" title="Excluir"
 						onclick="PF('confirmacaoExclusao').show();" process="@this">
 						<f:setPropertyActionListener
-							target="#{pesquisaLoginBean.loginSelecionado}"
-							value="#{login}" />
+							target="#{pesquisaLoginBean.loginSelecionado}" value="#{login}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 			<p:confirmDialog id="confirmacaoExclusaoDialog"
 				widgetVar="confirmacaoExclusao"
-				message="Tem certeza que deseja excluir a login #{pesquisaLoginBean.loginSelecionado.nome}?"
+				message="Tem certeza que deseja excluir a login #{pesquisaLoginBean.loginSelecionado.usuario}?"
 				header="Exclusão de login" severity="alert">
 				<p:button icon="fa fa-thumbs-o-down" value="Não"
 					onclick="PF('confirmacaoExclusao').hide(); return false;" />

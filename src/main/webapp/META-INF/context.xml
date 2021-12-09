@@ -2,7 +2,6 @@
 <!DOCTYPE xml>
 
 <Context>
-
 	<!-- Configuração para uso do CDI -->
 	<Manager pathname="/saltopetmanager" />
 

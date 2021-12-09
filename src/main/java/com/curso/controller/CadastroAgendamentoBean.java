@@ -1,16 +1,13 @@
 package com.curso.controller;
 
 import java.io.Serializable;
-
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import com.curso.modelo.Agendamento;
 import com.curso.service.AgendamentoService;
 import com.curso.util.MessageUtil;
-
 import lombok.Data;
 
 @Data
@@ -18,31 +15,30 @@ import lombok.Data;
 @ViewScoped
 public class CadastroAgendamentoBean implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	private Agendamento agendamento;
+  private static final long serialVersionUID = 1L;
 
-	@Inject
-	private AgendamentoService agendamentoService;
+  private Agendamento agendamento;
 
-	public void salvar() {
-		try {
-			this.agendamentoService.saveOrUpdate(agendamento);
-			MessageUtil.sucesso("Agendamento salvo com sucesso!");
-		} catch (Exception ex) {
-			MessageUtil.erro(ex.getMessage());
-		}
+  @Inject
+  private AgendamentoService agendamentoService;
 
-		this.limpar();
-	}
+  public void salvar() {
+    try {
+      this.agendamentoService.saveOrUpdate(agendamento);
+      MessageUtil.sucesso("Agendamento salvo com sucesso!");
+    } catch (Exception ex) {
+      MessageUtil.erro(ex.getMessage());
+    }
+    this.limpar();
+  }
 
-	@PostConstruct
-	public void inicializar() {
-		limpar();
-	}
+  @PostConstruct
+  public void inicializar() {
+    limpar();
+  }
 
-	public void limpar() {
-		this.agendamento = new Agendamento();
-	}
+  public void limpar() {
+    this.agendamento = new Agendamento();
+  }
 
 }

@@ -11,20 +11,20 @@ import javax.persistence.Persistence;
 @ApplicationScoped
 public class EntityManagerProducer {
 
-	private EntityManagerFactory factory;
+  private EntityManagerFactory factory;
 
-	public EntityManagerProducer() {
-		this.factory = Persistence.createEntityManagerFactory("curso_PU");
-	}
+  public EntityManagerProducer() {
+    this.factory = Persistence.createEntityManagerFactory("curso_PU");
+  }
 
-	@Produces
-	@RequestScoped
-	public EntityManager create() {
-		return factory.createEntityManager();
-	}
+  @Produces
+  @RequestScoped
+  public EntityManager create() {
+    return factory.createEntityManager();
+  }
 
-	public void close(@Disposes EntityManager manager) {
-		manager.close();
-	}
-	
+  public void close(@Disposes EntityManager manager) {
+    manager.close();
+  }
+
 }

@@ -19,7 +19,7 @@
 			<p:toolbar style="margin-top: 20px">
 				<p:toolbarGroup>
 					<p:commandButton icon="fa fa-plus" value="Novo" id="botaoNovo"
-						action="/restricted/tutor/CadastroTutor.xhtml" />
+						action="/login/CadastroTutor.xhtml" />
 
 				</p:toolbarGroup>
 			</p:toolbar>
@@ -30,8 +30,7 @@
 				paginatorAlwaysVisible="true" paginatorPosition="bottom"
 				lazy="false" rowsPerPageTemplate="5,10,15">
 
-				<p:column headerText="CPF"
-					style="width: 100px; text-align: center">
+				<p:column headerText="CPF" style="width: 100px; text-align: center">
 					<h:outputText value="#{tutor.cpf}" />
 				</p:column>
 
@@ -46,7 +45,7 @@
 				</p:column>
 
 				<p:column style="width: 100px; text-align: center">
-					<p:button outcome="CadastroTutor" icon="fa fa-edit" title="Editar">
+					<p:button outcome="/login/CadastroTutor.xhtml" icon="fa fa-edit" title="Editar">
 						<f:param name="tutor" value="#{tutor.cpf}" />
 					</p:button>
 					<p:commandButton icon="fa fa-trash-o" title="Excluir"

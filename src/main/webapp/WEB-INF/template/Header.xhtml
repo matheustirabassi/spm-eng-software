@@ -25,7 +25,7 @@
 		</p:ajaxStatus>
 
 		<header>
-
+			
 			<div style="float: left">
 				<h:outputLabel value="Sistema de Petshop" />
 				<br></br>
@@ -34,15 +34,19 @@
 
 			<div style="float: right; margin-right: 110px">
 				<h:form style="display: inline-block">
+				
 					<p:menubar styleClass="menu-sistema">
 						<p:menuitem value="Home" outcome="/Home.xhtml" />
-						<p:menuitem value="Login" outcome="/login.xhtml" />
+						<p:menuitem value="Fazer login" outcome="/login.xhtml" />
 						<p:submenu label="Cadastrar">
 							<p:menuitem value="Tutor"
 								outcome="/restricted/tutor/PesquisaTutor.xhtml">
 							</p:menuitem>
 							<p:menuitem value="Agendamento"
 								outcome="/restricted/agendamento/PesquisaAgendamento.xhtml">
+							</p:menuitem>
+							<p:menuitem value="Banhador Tosador"
+								outcome="/restricted/banhadortosador/PesquisaBanhadorTosador.xhtml">
 							</p:menuitem>
 						</p:submenu>
 						<p:menuitem value="Sair" outcome="/login.xhtml"
