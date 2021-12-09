@@ -57,6 +57,15 @@
 					<f:selectItems value="#{pesquisaTutorBean.tutores}" var="tutor"
 						itemLabel="#{tutor.nome}" itemValue="#{tutor}" />
 				</p:selectOneMenu>
+				
+				<p:outputLabel value="BanhadorTosador" for="banhadorTosador" />
+				<p:selectOneMenu id="banhadorTosador" required="false" effect="drop"
+					value="#{cadastroAgendamentoBean.agendamento.banhadorTosador}"
+					validatorMessage="O tosador é obrigatório.">
+					<f:selectItem itemLabel="Selecione o tosador" />
+					<f:selectItems value="#{pesquisaBanhadorTosadorBean.banhadorTosadores}" var="banhadorTosador"
+						itemLabel="#{banhadorTosador.nome}" itemValue="#{banhadorTosador}" />
+				</p:selectOneMenu>
 
 			</p:panelGrid>
 		</h:form>
