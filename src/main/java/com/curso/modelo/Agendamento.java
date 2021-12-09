@@ -24,6 +24,8 @@ public class Agendamento extends BaseEntity {
   private String observacao;
   @ManyToOne
   private Tutor tutor;
+  @ManyToOne
+  private BanhadorTosador banhadorTosador;
 
 
 
