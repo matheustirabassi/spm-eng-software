@@ -52,17 +52,17 @@
 				<p:outputLabel value="Tutor" for="tutor" />
 				<p:selectOneMenu id="tutor" required="false" effect="drop"
 					value="#{cadastroAgendamentoBean.agendamento.tutor}"
-					validatorMessage="A tutor é obrigatória.">
+					validatorMessage="O tutor é obrigatória.">
 					<f:selectItem itemLabel="Selecione o tutor" />
 					<f:selectItems value="#{pesquisaTutorBean.tutores}" var="tutor"
 						itemLabel="#{tutor.nome}" itemValue="#{tutor}" />
 				</p:selectOneMenu>
 				
-				<p:outputLabel value="BanhadorTosador" for="banhadorTosador" />
+				<p:outputLabel value="Banhador Tosador" for="banhadorTosador" />
 				<p:selectOneMenu id="banhadorTosador" required="false" effect="drop"
 					value="#{cadastroAgendamentoBean.agendamento.banhadorTosador}"
-					validatorMessage="O tosador é obrigatório.">
-					<f:selectItem itemLabel="Selecione o tosador" />
+					validatorMessage="O banhador Tosador é obrigatório.">
+					<f:selectItem itemLabel="Selecione o banhadorTosador" />
 					<f:selectItems value="#{pesquisaBanhadorTosadorBean.banhadorTosadores}" var="banhadorTosador"
 						itemLabel="#{banhadorTosador.nome}" itemValue="#{banhadorTosador}" />
 				</p:selectOneMenu>
