@@ -29,7 +29,7 @@ public class CadastroBanhadorTosadorBean implements Serializable {
   public void salvar() {
 
     this.banhadorTosadorService.saveOrUpdate(banhadorTosador);
-    MessageUtil.sucesso("Tutor salvo com sucesso!");
+    MessageUtil.sucesso("Banhador salvo com sucesso!");
 
     this.limpar();
   }

@@ -8,6 +8,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+/**
+ * Conversor da classe BanhadorTosador.
+ *
+ * @author Matheus Henrique
+ *
+ */
 @FacesConverter(forClass = BanhadorTosador.class)
 public class BanhadorTosadorConverter implements Converter<BanhadorTosador> {
 

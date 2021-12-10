@@ -1,13 +1,15 @@
 package com.curso.controller;
 
+import com.curso.modelo.Agendamento;
+import com.curso.modelo.BanhadorTosador;
+import com.curso.modelo.Tutor;
+import com.curso.service.AgendamentoService;
+import com.curso.util.MessageUtil;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import com.curso.modelo.Agendamento;
-import com.curso.service.AgendamentoService;
-import com.curso.util.MessageUtil;
 import lombok.Data;
 
 @Data
@@ -39,6 +41,12 @@ public class CadastroAgendamentoBean implements Serializable {
 
   public void limpar() {
     this.agendamento = new Agendamento();
+    BanhadorTosador banhadorTosador = new BanhadorTosador();
+    banhadorTosador.getAgendamentos().add(agendamento);
+    agendamento.setBanhadorTosador(banhadorTosador);
+    Tutor tutor = new Tutor();
+    tutor.getAgendamentos().add(agendamento);
+    agendamento.setTutor(tutor);
   }
 
 }
